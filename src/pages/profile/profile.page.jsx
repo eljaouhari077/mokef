@@ -3,19 +3,46 @@ import { IoMdInformationCircleOutline } from "react-icons/io";
 
 import Header from "./header/header";
 import ExpandableCard from "./expandable-card/expandable-card";
-import { FaFileContract, FaImages, FaRegEdit } from "react-icons/fa";
+import { FaFileContract, FaImages } from "react-icons/fa";
 import { MdRateReview } from "react-icons/md";
 import Contract from "./contract/contract";
 import Gallery from "./gallery/gallery";
 import Reviews from "./reviews/reviews";
+import DescriptionModal from "./modals/description.modal";
 
 const ProfilePage = ({ location }) => {
+  const [isDescModalVisible, setIsDescModalVisible] = React.useState(false);
+
   const isOwnProfile = location.pathname === "/profile";
+
+  const handleModalOpen = (modal) => {
+    switch (modal) {
+      case "description":
+        setIsDescModalVisible(true);
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  const handleModalClose = (modal) => {
+    switch (modal) {
+      case "description":
+        setIsDescModalVisible(false);
+        break;
+
+      default:
+        break;
+    }
+  };
 
   return (
     <div>
       <Header />
       <ExpandableCard
+        handleEdit={handleModalOpen}
+        modalType="description"
         isOwnProfile={isOwnProfile}
         title="A propos"
         titleIcon={
@@ -53,6 +80,11 @@ const ProfilePage = ({ location }) => {
       >
         <Reviews />
       </ExpandableCard>
+
+      <DescriptionModal
+        isVisible={isDescModalVisible}
+        handleModalClose={handleModalClose}
+      />
     </div>
   );
 };

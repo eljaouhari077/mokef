@@ -13,6 +13,12 @@ const SCard = styled(Card)`
   }
 `;
 
+const SSpace = styled(Space)`
+  > * {
+    cursor: pointer;
+  }
+`;
+
 const PlusIcon = styled(FaPlus)`
   font-size: 1.3rem;
 `;
@@ -20,7 +26,14 @@ const MinusIcon = styled(FaMinus)`
   font-size: 1.3rem;
 `;
 
-const ExpandableCard = ({ isOwnProfile, title, titleIcon, children }) => {
+const ExpandableCard = ({
+  isOwnProfile,
+  title,
+  titleIcon,
+  children,
+  handleEdit,
+  modalType,
+}) => {
   const [isExpanded, setIsExpanded] = React.useState(false);
 
   const displayExpandIcon = () => {
@@ -41,10 +54,12 @@ const ExpandableCard = ({ isOwnProfile, title, titleIcon, children }) => {
         </Flex>
       }
       extra={
-        <Space size="middle">
-          {isOwnProfile ? <FaRegEdit /> : null}
+        <SSpace size="middle">
+          {isOwnProfile ? (
+            <FaRegEdit onClick={() => handleEdit(modalType)} />
+          ) : null}
           {displayExpandIcon()}
-        </Space>
+        </SSpace>
       }
     >
       {children}
