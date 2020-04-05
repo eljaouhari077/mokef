@@ -8,6 +8,7 @@ import SetupPage from "./pages/setup/setup.page";
 import { FirebaseContext } from "./firebase";
 import { UserContext } from "./contexts/user-context";
 import PrivateRoute from "./components/private-route/PrivateRoute";
+import ProfilePage from "./pages/profile/profile.page";
 
 const App = () => {
   const fb = React.useContext(FirebaseContext);
@@ -23,8 +24,9 @@ const App = () => {
       <Navigation />
       <Switch>
         <PrivateRoute path="/" render={HomePage} exact />
-        <Route path="/Login" render={LoginPage} />
+        <Route path="/login" render={LoginPage} />
         <Route path="/setup" render={SetupPage} />
+        <Route path="/profile" render={ProfilePage} />
       </Switch>
     </>
   );
