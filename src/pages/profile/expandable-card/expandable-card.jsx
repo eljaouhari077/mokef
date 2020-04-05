@@ -1,7 +1,7 @@
 import React from "react";
-import { Card } from "antd";
+import { Card, Space } from "antd";
 
-import { FaPlus, FaMinus } from "react-icons/fa";
+import { FaPlus, FaMinus, FaRegEdit } from "react-icons/fa";
 
 import styled from "styled-components";
 import { Flex } from "../../../components/shared/shared.styled";
@@ -20,7 +20,7 @@ const MinusIcon = styled(FaMinus)`
   font-size: 1.3rem;
 `;
 
-const ExpandableCard = ({ title, titleIcon, children }) => {
+const ExpandableCard = ({ isOwnProfile, title, titleIcon, children }) => {
   const [isExpanded, setIsExpanded] = React.useState(false);
 
   const displayExpandIcon = () => {
@@ -40,7 +40,12 @@ const ExpandableCard = ({ title, titleIcon, children }) => {
           <span style={{ marginLeft: "1rem" }}>{title}</span>
         </Flex>
       }
-      extra={displayExpandIcon()}
+      extra={
+        <Space size="middle">
+          {isOwnProfile ? <FaRegEdit /> : null}
+          {displayExpandIcon()}
+        </Space>
+      }
     >
       {children}
     </SCard>
