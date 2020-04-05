@@ -10,7 +10,7 @@ const ErrorSpan = styled.span`
 `;
 
 const Root = styled.div`
-  margin: 1.5rem 0;
+  margin: 1rem 0;
 
   > label {
     color: #999;
@@ -35,7 +35,7 @@ const CustomInput = ({ label, name, type }) => {
 CustomInput.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired
+  type: PropTypes.string.isRequired,
 };
 
 export default CustomInput;

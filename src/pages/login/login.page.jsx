@@ -1,6 +1,6 @@
 import React from "react";
 import _ from "lodash";
-import { Steps, Card, Input } from "antd";
+import { Card, Input } from "antd";
 import { FaFacebook, FaGoogle } from "react-icons/fa";
 import { MdLocalPhone } from "react-icons/md";
 import { FirebaseContext } from "../../firebase";
@@ -8,9 +8,7 @@ import { UserContext } from "../../contexts/user-context";
 
 import AuthProviderCard from "./auth-provider-card/auth-provider-card";
 import { CardContainer } from "../../components/shared/shared.styled";
-import { SSteps } from "./login.styled";
-
-const { Step } = Steps;
+import { createUserIfNotExist } from "../../utils/dao";
 
 const LoginPage = ({ history }) => {
   const [isPhoneSignUp, setIsPhoneSignUp] = React.useState(false);
@@ -32,15 +30,15 @@ const LoginPage = ({ history }) => {
   };
 
   const handleGoogleClick = () => {
-    fb.doSignInWithGoogle()
-      .then(({ user }) =>
-        fb
-          .usersCollection()
-          .doc(user.uid)
-          .set({ email: user.email }, { merge: true })
-          .then(() => history.push("/"))
-      )
-      .catch((error) => console.error(error));
+    fb.doSignInWithGoogle().then(({ user }) =>
+      createUserIfNotExist(fb, user).then(() => history.push("/"))
+    );
+  };
+
+  const handleFacebookClick = () => {
+    fb.doSignInWithFacebook().then(({ user }) =>
+      createUserIfNotExist(fb, user).then(() => history.push("/"))
+    );
   };
 
   const displayPhoneLogin = () => {
@@ -71,12 +69,8 @@ const LoginPage = ({ history }) => {
 
   return (
     <CardContainer>
-      <SSteps size="small" direction="horizontal">
-        <Step />
-        <Step />
-      </SSteps>
-
       <AuthProviderCard
+        handleClick={handleFacebookClick}
         Icon={FaFacebook}
         iconColor="#3b5998"
         content="Connexion avec Facebook"

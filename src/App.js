@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import firebase from "firebase";
 
 import Navigation from "./components/navigation/navigation";
 import HomePage from "./pages/home/home.page";
@@ -16,6 +15,7 @@ const App = () => {
 
   React.useEffect(() => {
     fb.onAuthStateChanged(setUser);
+    // eslint-disable-next-line
   }, []);
 
   return (
