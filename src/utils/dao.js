@@ -1,10 +1,18 @@
 import _ from "lodash";
+import firebase from "firebase";
 
 export const createUserIfNotExist = (fb, user) => {
   return fb
     .usersCollection()
     .doc(user.uid)
-    .set({ email: user.email, profile: {} }, { merge: true })
+    .set(
+      {
+        email: user.email,
+        profile: {},
+        created_at: firebase.firestore.FieldValue.serverTimestamp(),
+      },
+      { merge: true }
+    )
     .catch((error) => console.error(error));
 };
 

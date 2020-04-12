@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { UserContext } from "../../contexts/user-context";
 import { Route, Redirect } from "react-router-dom";
 
-const PrivateRoute = ({ Component, ...rest }) => {
+const PrivateRoute = ({ component, ...rest }) => {
   const { user } = React.useContext(UserContext);
 
   const routeRender = () => {
@@ -12,7 +12,7 @@ const PrivateRoute = ({ Component, ...rest }) => {
 
     if (!_.isEmpty(user)) {
       if (user.fullName) {
-        return <Route component={Component} {...rest} />;
+        return <Route component={component} {...rest} />;
       } else {
         return <Redirect to="/setup" />;
       }
@@ -25,7 +25,7 @@ const PrivateRoute = ({ Component, ...rest }) => {
 };
 
 PrivateRoute.propTypes = {
-  Component: PropTypes.elementType.isRequired,
+  component: PropTypes.elementType.isRequired,
 };
 
 export default PrivateRoute;
