@@ -1,5 +1,6 @@
 import React from "react";
-import { Card, Space } from "antd";
+import { Card } from "antd";
+import PropTypes from "prop-types";
 
 import { FaPlus, FaMinus, FaRegEdit } from "react-icons/fa";
 
@@ -9,13 +10,14 @@ import { Flex } from "../../../components/shared/shared.styled";
 const SCard = styled(Card)`
   margin: 1rem;
   > div.ant-card-body {
-    display: ${({ isExpanded }) => (isExpanded ? "block" : "none")};
+    display: ${({ styled }) => (styled.isExpanded ? "block" : "none")};
   }
 `;
 
-const SSpace = styled(Space)`
+const Spacing = styled.div`
   > * {
     cursor: pointer;
+    margin: 0 0.5rem;
   }
 `;
 
@@ -31,8 +33,8 @@ const ExpandableCard = ({
   title,
   titleIcon,
   children,
-  handleEdit,
-  modalType,
+  openModal,
+  showEdit,
 }) => {
   const [isExpanded, setIsExpanded] = React.useState(false);
 
@@ -46,7 +48,7 @@ const ExpandableCard = ({
 
   return (
     <SCard
-      isExpanded={isExpanded}
+      styled={{ isExpanded }}
       title={
         <Flex align="center">
           {titleIcon}
@@ -54,17 +56,31 @@ const ExpandableCard = ({
         </Flex>
       }
       extra={
-        <SSpace size="middle">
-          {isOwnProfile ? (
-            <FaRegEdit onClick={() => handleEdit(modalType)} />
-          ) : null}
+        <Spacing>
+          {isOwnProfile && showEdit && (
+            <FaRegEdit onClick={() => openModal()} />
+          )}
           {displayExpandIcon()}
-        </SSpace>
+        </Spacing>
       }
     >
       {children}
     </SCard>
   );
+};
+
+ExpandableCard.propTypes = {
+  isOwnProfile: PropTypes.bool,
+  title: PropTypes.string.isRequired,
+  titleIcon: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
+  openModal: PropTypes.func,
+  showEdit: PropTypes.bool,
+};
+
+ExpandableCard.defaultProps = {
+  isOwnProfile: false,
+  showEdit: false,
 };
 
 export default ExpandableCard;

@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, List, Avatar } from "antd";
+import { List, Avatar } from "antd";
 import Sabbath from "../../../assets/sabbath.jpg";
 import { FaStar } from "react-icons/fa";
 import { Flex } from "../../../components/shared/shared.styled";

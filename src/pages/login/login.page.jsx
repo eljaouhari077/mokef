@@ -1,5 +1,6 @@
 import React from "react";
 import _ from "lodash";
+import PropTypes from "prop-types";
 import { Card, Input } from "antd";
 import { FaFacebook, FaGoogle } from "react-icons/fa";
 import { MdLocalPhone } from "react-icons/md";
@@ -85,6 +86,10 @@ const LoginPage = ({ history }) => {
       <div id="recaptcha-container"></div>
     </CardContainer>
   );
+};
+
+LoginPage.propTypes = {
+  history: PropTypes.object.isRequired,
 };
 
 export default ({ history }) => {

@@ -1,5 +1,6 @@
 import React from "react";
 import _ from "lodash";
+import PropTypes from "prop-types";
 import { UserContext } from "../../contexts/user-context";
 import { Route, Redirect } from "react-router-dom";
 
@@ -21,6 +22,10 @@ const PrivateRoute = ({ Component, ...rest }) => {
   };
 
   return routeRender();
+};
+
+PrivateRoute.propTypes = {
+  Component: PropTypes.elementType.isRequired,
 };
 
 export default PrivateRoute;

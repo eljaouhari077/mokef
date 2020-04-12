@@ -23,10 +23,10 @@ const App = () => {
     <>
       <Navigation />
       <Switch>
-        <PrivateRoute path="/" render={HomePage} exact />
-        <Route path="/login" render={LoginPage} />
-        <Route path="/setup" render={SetupPage} />
-        <Route path="/profile" render={ProfilePage} />
+        <PrivateRoute path="/" Component={HomePage} exact />
+        <Route path="/login" Component={LoginPage} />
+        <Route path="/setup" Component={SetupPage} />
+        <PrivateRoute path="/profile" Component={ProfilePage} />
       </Switch>
     </>
   );

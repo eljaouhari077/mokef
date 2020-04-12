@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Upload, message } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 
@@ -24,12 +25,12 @@ const AvatarUpload = ({ setAvatarFile }) => {
   const [imageUrl, setImageUrl] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
 
-  const handleChange = info => {
+  const handleChange = (info) => {
     if (info.file.status === "uploading") {
       return setLoading(true);
     }
     if (info.file.status === "done") {
-      getBase64(info.file.originFileObj, url => {
+      getBase64(info.file.originFileObj, (url) => {
         setAvatarFile(info.file.originFileObj);
         setImageUrl(url);
         setLoading(false);
@@ -60,6 +61,10 @@ const AvatarUpload = ({ setAvatarFile }) => {
       )}
     </Upload>
   );
+};
+
+AvatarUpload.propTypes = {
+  setAvatarFile: PropTypes.func.isRequired,
 };
 
 export default AvatarUpload;

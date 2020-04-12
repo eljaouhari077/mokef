@@ -1,5 +1,6 @@
 import React from "react";
 import _ from "lodash";
+import PropTypes from "prop-types";
 import { CardContainer, Flex } from "../../components/shared/shared.styled";
 import { Card, Button, Radio } from "antd";
 import { Formik, Form } from "formik";
@@ -113,6 +114,10 @@ const SetupPage = ({ history }) => {
       </Formik>
     </CardContainer>
   );
+};
+
+SetupPage.propTypes = {
+  history: PropTypes.object.isRequired,
 };
 
 export default ({ history }) => {
