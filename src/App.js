@@ -24,9 +24,9 @@ const App = () => {
       <Navigation />
       <Switch>
         <PrivateRoute path="/" component={HomePage} exact />
+        <PrivateRoute path="/profile" component={ProfilePage} />
         <Route path="/login" component={LoginPage} />
         <Route path="/setup" component={SetupPage} />
-        <PrivateRoute path="/profile" component={ProfilePage} />
       </Switch>
     </>
   );

@@ -21,6 +21,8 @@ const Header = () => {
   }, []);
 
   const getUserElapsedTime = () => {
+    if (!user.created_at) return 0;
+
     const userCreatedAt = moment.unix(user.created_at.seconds);
     return moment().diff(userCreatedAt, "hours");
   };

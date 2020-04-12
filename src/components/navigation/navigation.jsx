@@ -1,13 +1,29 @@
 import React from "react";
+import _ from "lodash";
 import { MenuOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { Drawer } from "antd";
 
 import { ReactComponent as Logo } from "../../assets/logo.svg";
 import { Root, NavList } from "./navigation.styled";
+import { UserContext } from "../../contexts/user-context";
+import { FirebaseContext } from "../../firebase";
 
-const Navigation = () => {
+const Navigation = ({ location }) => {
+  const fb = React.useContext(FirebaseContext);
+  const { user, setUser } = React.useContext(UserContext);
   const [isDrawerVisible, setIsDrawerVisible] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsDrawerVisible(false);
+  }, [location]);
+
+  const isLoggedIn = () => !_.isEmpty(user);
+
+  const signOut = () => {
+    fb.doSignOut();
+    setUser({});
+  };
 
   return (
     <Root>
@@ -20,13 +36,20 @@ const Navigation = () => {
         onClose={() => setIsDrawerVisible(false)}
         placement="left"
       >
-        <NavList>
-          <Link to="/">Accueil</Link>
-          <Link to="/login">Connexion</Link>
-        </NavList>
+        {isLoggedIn ? (
+          <NavList>
+            <Link to="/">Accueil</Link>
+            <Link to="/profile">Profile</Link>
+            <a onClick={signOut}>Sign Out</a>
+          </NavList>
+        ) : (
+          <NavList>
+            <Link to="/login">Connexion</Link>
+          </NavList>
+        )}
       </Drawer>
     </Root>
   );
 };
 
-export default Navigation;
+export default withRouter(Navigation);
