@@ -25,6 +25,10 @@ const Navigation = ({ location }) => {
     setUser({});
   };
 
+  React.useEffect(() => {
+    console.log("Testing");
+  }, []);
+
   return (
     <Root>
       <MenuOutlined onClick={() => setIsDrawerVisible(true)} />

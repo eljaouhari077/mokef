@@ -29,6 +29,8 @@ const ProfilePage = ({ location }) => {
     // eslint-disable-next-line
   }, []);
 
+  const [user, setUser] = React.useState(null);
+
   return (
     <div>
       <Header />
