@@ -62,6 +62,7 @@ const SetupPage = ({ history }) => {
             uid: user.uid,
             email: user.email,
             avatarURL: avatarFile ? `/avatars/${avatarFile.uid}` : null,
+            profile: {},
           };
           updateUserWithAdditionalInformations(fb, data).then(() => {
             setUser(data);

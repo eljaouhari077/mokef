@@ -8,7 +8,6 @@ export const createUserIfNotExist = (fb, user) => {
     .set(
       {
         email: user.email,
-        profile: {},
         created_at: firebase.firestore.FieldValue.serverTimestamp(),
       },
       { merge: true }

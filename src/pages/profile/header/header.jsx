@@ -18,6 +18,7 @@ const Header = () => {
 
   React.useEffect(() => {
     getAvatar();
+    // eslint-disable-next-line
   }, []);
 
   const getUserElapsedTime = () => {

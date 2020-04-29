@@ -22,7 +22,6 @@ export const NavList = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
   > a {
     font-size: 1.6rem;
     margin: 0.5rem 0;

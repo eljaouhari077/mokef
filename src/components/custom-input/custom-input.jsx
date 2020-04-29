@@ -22,11 +22,11 @@ const SInput = styled(Input)`
   border: 0;
 `;
 
-const CustomInput = ({ label, name, type }) => {
+const CustomInput = ({ label, name, type, ...props }) => {
   return (
     <Root>
       <label htmlFor={name}>{label}</label>
-      <Field as={SInput} type={type} name={name} />
+      <Field {...props} as={SInput} type={type} name={name} />
       <ErrorMessage name={name} component={ErrorSpan} />
     </Root>
   );

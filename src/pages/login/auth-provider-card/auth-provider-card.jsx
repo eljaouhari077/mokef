@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const SCard = styled(Card)`
+  cursor: pointer;
   margin-bottom: 2rem;
   border-radius: 0.8rem;
   box-shadow: 2px 5px 7px rgba(0, 0, 0, 0.15);
