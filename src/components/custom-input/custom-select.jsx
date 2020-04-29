@@ -24,7 +24,15 @@ const CustomSelect = ({ name, children, label, ...props }) => {
   return (
     <Root>
       <label htmlFor={name}>{label}</label>
-      <Field {...props} as={SSelect} name={name}>
+      <Field
+        {...props}
+        filterOption={(input, option) =>
+          option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+        }
+        showSearch
+        as={SSelect}
+        name={name}
+      >
         {children}
       </Field>
     </Root>

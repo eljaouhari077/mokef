@@ -6,18 +6,20 @@ import Header from "./header/header";
 import ExpandableCard from "./expandable-card/expandable-card";
 import { FaFileContract, FaImages } from "react-icons/fa";
 import { MdRateReview } from "react-icons/md";
-import Contract from "./contract/contract";
+import Announce from "./announce/announce";
 import Reviews from "./reviews/reviews";
 import DescriptionModal from "./modals/description.modal";
 import { UserContext } from "../../contexts/user-context";
 import { Empty } from "antd";
-import { syncUserOnUpdate } from "../../utils/dao";
+import { syncUserOnUpdate, getUserAnnounces } from "../../utils/dao";
 import { FirebaseContext } from "../../firebase";
 import PicturesWall from "./gallery/pictures-wall";
 
 const ProfilePage = ({ location }) => {
   const fb = React.useContext(FirebaseContext);
   const { user, setUser } = React.useContext(UserContext);
+  const [announces, setAnnounces] = React.useState(null);
+
   const [
     isDescriptionModalVisible,
     setIsDescriptionModalVisible,
@@ -26,6 +28,9 @@ const ProfilePage = ({ location }) => {
 
   React.useEffect(() => {
     syncUserOnUpdate(fb, user, setUser);
+    getUserAnnounces(fb, user).then(({ docs }) => {
+      setAnnounces(docs.map((doc) => ({ ...doc.data(), uid: doc.id })));
+    });
     // eslint-disable-next-line
   }, []);
 
@@ -52,8 +57,17 @@ const ProfilePage = ({ location }) => {
         title="Contrats"
         titleIcon={<FaFileContract style={{ fontSize: "1.5rem" }} />}
       >
-        <Contract />
-        <Contract />
+        {announces ? (
+          announces.map((announce) => (
+            <Announce
+              key={announce.uid}
+              title={announce.title}
+              imageURL={announce.imageURL}
+            />
+          ))
+        ) : (
+          <Empty />
+        )}
       </ExpandableCard>
 
       <ExpandableCard

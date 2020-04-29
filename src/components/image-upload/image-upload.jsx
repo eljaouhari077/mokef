@@ -21,7 +21,7 @@ function beforeUpload(file) {
   return isJpgOrPng && isLt2M;
 }
 
-const AvatarUpload = ({ setAvatarFile }) => {
+const ImageUpload = ({ setImageFile }) => {
   const [imageUrl, setImageUrl] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
 
@@ -31,7 +31,7 @@ const AvatarUpload = ({ setAvatarFile }) => {
     }
     if (info.file.status === "done") {
       getBase64(info.file.originFileObj, (url) => {
-        setAvatarFile(info.file.originFileObj);
+        setImageFile(info.file.originFileObj);
         setImageUrl(url);
         setLoading(false);
       });
@@ -41,13 +41,13 @@ const AvatarUpload = ({ setAvatarFile }) => {
   const uploadButton = (
     <div>
       {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div>Avatar</div>
+      <div>Image</div>
     </div>
   );
 
   return (
     <Upload
-      name="avatar"
+      name="image"
       listType="picture-card"
       showUploadList={false}
       action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
@@ -63,8 +63,8 @@ const AvatarUpload = ({ setAvatarFile }) => {
   );
 };
 
-AvatarUpload.propTypes = {
-  setAvatarFile: PropTypes.func.isRequired,
+ImageUpload.propTypes = {
+  setImageFile: PropTypes.func.isRequired,
 };
 
-export default AvatarUpload;
+export default ImageUpload;

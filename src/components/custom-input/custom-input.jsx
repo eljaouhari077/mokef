@@ -22,11 +22,11 @@ const SInput = styled(Input)`
   border: 0;
 `;
 
-const CustomInput = ({ label, name, type, ...props }) => {
+const CustomInput = ({ label, name, type, asElement, ...props }) => {
   return (
     <Root>
       <label htmlFor={name}>{label}</label>
-      <Field {...props} as={SInput} type={type} name={name} />
+      <Field {...props} as={asElement} type={type} name={name} />
       <ErrorMessage name={name} component={ErrorSpan} />
     </Root>
   );
@@ -36,6 +36,11 @@ CustomInput.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
+  asElement: PropTypes.elementType,
+};
+
+CustomInput.defaultProps = {
+  asElement: SInput,
 };
 
 export default CustomInput;

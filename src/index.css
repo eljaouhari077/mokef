@@ -20,6 +20,7 @@ body {
 
 .ant-upload-picture-card-wrapper {
   width: auto;
+  align-self: center;
 }
 
 .secondary {

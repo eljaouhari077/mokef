@@ -29,3 +29,12 @@ export const syncUserOnUpdate = (fb, user, setUser) => {
     .doc(user.uid)
     .onSnapshot((doc) => setUser({ uid: doc.id, ...doc.data() }));
 };
+
+export const saveAnnounce = (fb, announce) => {
+  return fb.announcesCollection().add(announce);
+};
+
+export const getUserAnnounces = (fb, user) => {
+  const userRef = fb.usersCollection().doc(user.uid);
+  return fb.announcesCollection().where("user", "==", userRef).get();
+};
