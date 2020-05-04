@@ -10,6 +10,7 @@ import { UserContext } from "./contexts/user-context";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import ProfilePage from "./pages/profile/profile.page";
 import NewAnnouncePage from "./pages/new-announce/new-announce.page";
+import AnnouncePage from "./pages/announce/announce.page";
 
 const App = () => {
   const fb = React.useContext(FirebaseContext);
@@ -24,11 +25,12 @@ const App = () => {
     <>
       <Navigation />
       <Switch>
-        <Route path="/" component={HomePage} exact />
-        <PrivateRoute path="/profile" component={ProfilePage} />
-        <Route path="/login" component={LoginPage} />
-        <Route path="/setup" component={SetupPage} />
-        <PrivateRoute path="/announce/new" component={NewAnnouncePage} />
+        <Route path="/" exact component={HomePage} />
+        <PrivateRoute path="/profile" exact component={ProfilePage} />
+        <Route path="/login" exact component={LoginPage} />
+        <Route path="/setup" exact component={SetupPage} />
+        <PrivateRoute path="/announce/new" exact component={NewAnnouncePage} />
+        <PrivateRoute path="/announce/:id" exact component={AnnouncePage} />
       </Switch>
     </>
   );

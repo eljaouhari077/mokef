@@ -16,7 +16,7 @@ export const SImage = styled(Image)`
   margin-right: 2rem;
 `;
 
-export const UserInfo = styled.div`
+export const UserInformations = styled.div`
   color: #fff;
 
   > h3 {

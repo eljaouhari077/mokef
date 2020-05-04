@@ -5,8 +5,9 @@ import Cover from "../../../assets/sabbath.jpg";
 import PropTypes from "prop-types";
 import { getStorageFile } from "../../../utils/storage";
 import { FirebaseContext } from "../../../firebase";
+import { withRouter } from "react-router-dom";
 
-const Announce = ({ title, imageURL }) => {
+const Announce = ({ title, imageURL, uid, history }) => {
   const fb = React.useContext(FirebaseContext);
   const [img, setImg] = React.useState(Cover);
 
@@ -18,7 +19,11 @@ const Announce = ({ title, imageURL }) => {
   }, []);
 
   return (
-    <Card style={{ margin: "1.5rem 0" }} cover={<Image src={img} />}>
+    <Card
+      style={{ margin: "1.5rem 0" }}
+      onClick={() => history.push(`/announce/${uid}`)}
+      cover={<Image src={img} />}
+    >
       <Card.Meta title={title} />
     </Card>
   );
@@ -28,4 +33,4 @@ Announce.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-export default Announce;
+export default withRouter(Announce);

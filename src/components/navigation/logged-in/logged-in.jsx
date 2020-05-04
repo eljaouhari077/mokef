@@ -6,6 +6,15 @@ import { UserContext } from "../../../contexts/user-context";
 import { Button } from "antd";
 import styled from "styled-components";
 
+const LinkButton = styled(Button)`
+  text-align: start;
+  padding: 0;
+`;
+
+const Annonce = styled(Link)`
+  margin-top: 0.5rem;
+`;
+
 function LoggedIn() {
   const fb = React.useContext(FirebaseContext);
   const { setUser } = React.useContext(UserContext);
@@ -15,17 +24,6 @@ function LoggedIn() {
     setUser({});
   };
 
-  const LinkButton = styled(Button)`
-    text-align: start;
-    padding: 0;
-  `;
-
-  const Annonce = styled(Button)`
-    margin-top: 0.5rem;
-    text-align: start;
-    width: 70%;
-  `;
-
   return (
     <NavList>
       <Link to="/">Accueil</Link>
@@ -33,7 +31,9 @@ function LoggedIn() {
       <LinkButton type="link" onClick={signOut}>
         Sign Out
       </LinkButton>
-      <Annonce type="primary">Nouvelle Annonce</Annonce>
+      <Annonce to="/announce/new">
+        <Button type="primary">Nouvelle Annonce</Button>
+      </Annonce>
     </NavList>
   );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { Upload, Modal, Button, message } from "antd";
+import { Upload, Button, message } from "antd";
 import firebase from "firebase";
 import { PlusOutlined } from "@ant-design/icons";
 
@@ -11,6 +11,7 @@ import {
   removeStorageFile,
   addStorageFile,
 } from "../../../utils/storage";
+import ImagePreview from "../../../components/image-preview/image-preview";
 
 const getBase64 = (file) => {
   return new Promise((resolve, reject) => {
@@ -74,8 +75,6 @@ const PicturesWall = () => {
     }
   };
 
-  const handleCancel = () => setPreviewVisible(false);
-
   const handlePreview = async (file) => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
@@ -110,9 +109,11 @@ const PicturesWall = () => {
         )}
       </Upload>
 
-      <Modal visible={previewVisible} footer={null} onCancel={handleCancel}>
-        <img alt="example" style={{ width: "100%" }} src={previewImage} />
-      </Modal>
+      <ImagePreview
+        previewImage={previewImage}
+        isVisible={previewVisible}
+        setIsVisible={setPreviewVisible}
+      />
     </div>
   );
 };

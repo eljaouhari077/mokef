@@ -2,7 +2,6 @@ import React from "react";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 import PropTypes from "prop-types";
 
-import Header from "./header/header";
 import ExpandableCard from "./expandable-card/expandable-card";
 import { FaFileContract, FaImages } from "react-icons/fa";
 import { MdRateReview } from "react-icons/md";
@@ -14,6 +13,7 @@ import { Empty } from "antd";
 import { syncUserOnUpdate, getUserAnnounces } from "../../utils/dao";
 import { FirebaseContext } from "../../firebase";
 import PicturesWall from "./gallery/pictures-wall";
+import UserInfo from "../../components/user-info/user-info";
 
 const ProfilePage = ({ location }) => {
   const fb = React.useContext(FirebaseContext);
@@ -36,7 +36,7 @@ const ProfilePage = ({ location }) => {
 
   return (
     <div>
-      <Header />
+      <UserInfo />
       <ExpandableCard
         openModal={() => setIsDescriptionModalVisible(true)}
         showEdit
@@ -63,6 +63,7 @@ const ProfilePage = ({ location }) => {
               key={announce.uid}
               title={announce.title}
               imageURL={announce.imageURL}
+              uid={announce.uid}
             />
           ))
         ) : (
