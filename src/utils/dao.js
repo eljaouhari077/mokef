@@ -38,6 +38,10 @@ export const saveAnnounce = (fb, announce) => {
   return fb.announcesCollection().add(announce);
 };
 
+export const getAllAnnounces = (fb) => {
+  return fb.announcesCollection().get();
+};
+
 export const getUserAnnounces = (fb, user) => {
   const userRef = fb.usersCollection().doc(user.uid);
   return fb.announcesCollection().where("user", "==", userRef).get();

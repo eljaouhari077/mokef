@@ -11,6 +11,7 @@ import PrivateRoute from "./components/private-route/PrivateRoute";
 import ProfilePage from "./pages/profile/profile.page";
 import NewAnnouncePage from "./pages/new-announce/new-announce.page";
 import AnnouncePage from "./pages/announce/announce.page";
+import SearchPage from "./pages/search/search.page";
 
 const App = () => {
   const fb = React.useContext(FirebaseContext);
@@ -31,6 +32,7 @@ const App = () => {
         <Route path="/setup" exact component={SetupPage} />
         <PrivateRoute path="/announce/new" exact component={NewAnnouncePage} />
         <PrivateRoute path="/announce/:id" exact component={AnnouncePage} />
+        <PrivateRoute path="/search" exact component={SearchPage} />
       </Switch>
     </>
   );
