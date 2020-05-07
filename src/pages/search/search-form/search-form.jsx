@@ -13,22 +13,30 @@ const Root = styled.div`
   }
 `;
 
-const SearchForm = () => {
-  const [isFiltering, setIsFiltering] = React.useState(false);
-
+const SearchForm = ({ filters, setFilters, isFiltering, setIsFiltering }) => {
   return (
     <Root>
       <div>
         <Input.Group>
           <Input
             style={{ width: "65%" }}
-            onChange={(e) => console.log(e.target.value)}
+            onChange={(e) =>
+              setFilters({
+                ...filters,
+                searchTerm: e.target.value,
+              })
+            }
             placeholder="ex: Youness"
           />
           <Select
             defaultValue={jobs[0]}
             style={{ width: "35%" }}
-            onChange={(e) => console.log(e)}
+            onChange={(e) =>
+              setFilters({
+                ...filters,
+                category: e,
+              })
+            }
           >
             {jobs.map((job) => (
               <Select.Option value={job} key={job}>
