@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { List, Avatar } from "antd";
 import { FaStar } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
+import { withRouter } from "react-router-dom";
 
 const SList = styled(List)`
   padding: 1rem;
@@ -10,7 +11,7 @@ const SList = styled(List)`
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 `;
 
-const AnnouncesComp = ({ announces }) => {
+const AnnouncesComp = ({ announces, history }) => {
   return (
     <SList
       itemLayout="vertical"
@@ -28,6 +29,8 @@ const AnnouncesComp = ({ announces }) => {
             </>,
             <span>{announce.prix}DH</span>,
           ]}
+          onClick={() => history.push(`/announce/${announce.id}`)}
+          style={{ cursor: "pointer" }}
         >
           <List.Item.Meta
             avatar={<Avatar src={announce.user.avatarURL} />}
@@ -42,4 +45,4 @@ const AnnouncesComp = ({ announces }) => {
   );
 };
 
-export default AnnouncesComp;
+export default withRouter(AnnouncesComp);

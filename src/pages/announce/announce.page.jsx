@@ -13,12 +13,14 @@ import { FirebaseContext } from "../../firebase";
 import { withRouter } from "react-router-dom";
 import { getStorageFile } from "../../utils/storage";
 import ImagePreview from "../../components/image-preview/image-preview";
+import { SelectedAnnounceContext } from "../../contexts/selected-announce-context";
 
 function AnnouncePage({ match, history }) {
   const [announceData, setAnnounceData] = React.useState(null);
   const [announceImage, setAnnounceImage] = React.useState(null);
   const [announceOwner, setAnnounceOwner] = React.useState(null);
   const [isPreviewVisible, setIsPreviewVisible] = React.useState(null);
+  const { setSelectedAnnounce } = React.useContext(SelectedAnnounceContext);
 
   const fb = React.useContext(FirebaseContext);
 
@@ -32,7 +34,7 @@ function AnnouncePage({ match, history }) {
     if (!result.exists) {
       return history.push("/");
     }
-    setAnnounceData(result.data());
+    setAnnounceData({ ...result.data(), id: result.id });
 
     const owner = await getUserFromRef(fb, result.data().user);
     setAnnounceOwner(owner.data());
@@ -49,8 +51,15 @@ function AnnouncePage({ match, history }) {
         <div>
           {announceOwner && <UserInfo userToDisplay={announceOwner} />}
           <AnnounceInfo direction="column" align="start">
-            <Button type="primary" size="large">
-              Continuer ({announceData.prix}DH)
+            <Button
+              type="primary"
+              size="large"
+              onClick={() => {
+                setSelectedAnnounce(announceData);
+                history.push("/paiement");
+              }}
+            >
+              Continuer {announceData.prix}DH
             </Button>
             {announceImage && (
               <SImage

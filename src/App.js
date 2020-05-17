@@ -12,6 +12,7 @@ import ProfilePage from "./pages/profile/profile.page";
 import NewAnnouncePage from "./pages/new-announce/new-announce.page";
 import AnnouncePage from "./pages/announce/announce.page";
 import SearchPage from "./pages/search/search.page";
+import Stripe from "./components/stripe/stripe";
 
 const App = () => {
   const fb = React.useContext(FirebaseContext);
@@ -30,6 +31,7 @@ const App = () => {
         <PrivateRoute path="/profile" exact component={ProfilePage} />
         <Route path="/login" exact component={LoginPage} />
         <Route path="/setup" exact component={SetupPage} />
+        <Route path="/paiement" exact component={Stripe} />
         <PrivateRoute path="/announce/new" exact component={NewAnnouncePage} />
         <PrivateRoute path="/announce/:id" exact component={AnnouncePage} />
         <PrivateRoute path="/search" exact component={SearchPage} />

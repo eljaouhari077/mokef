@@ -77,7 +77,10 @@ function SearchPage() {
 
   const getAnnounces = async () => {
     const announcesRefs = await getAllAnnounces(fb);
-    const allAnnounces = announcesRefs.docs.map((announce) => announce.data());
+    const allAnnounces = announcesRefs.docs.map((announce) => ({
+      ...announce.data(),
+      id: announce.id,
+    }));
     const allAnnouncesWithUserData = await Promise.all(
       allAnnounces.map((announce) =>
         getUserFromRef(fb, announce.user).then((user) => ({

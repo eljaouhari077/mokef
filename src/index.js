@@ -6,15 +6,18 @@ import * as serviceWorker from "./serviceWorker";
 import App from "./App";
 import Firebase, { FirebaseContext } from "./firebase";
 import UserProvider from "./contexts/user-context";
+import SelectedAnnounceProvider from "./contexts/selected-announce-context";
 import "antd/dist/antd.css";
 import "./index.css";
 
 ReactDOM.render(
   <FirebaseContext.Provider value={new Firebase()}>
     <UserProvider>
-      <Router>
-        <App />
-      </Router>
+      <SelectedAnnounceProvider>
+        <Router>
+          <App />
+        </Router>
+      </SelectedAnnounceProvider>
     </UserProvider>
   </FirebaseContext.Provider>,
   document.getElementById("root")
