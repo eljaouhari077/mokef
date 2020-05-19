@@ -39,8 +39,8 @@ const SearchForm = ({ filters, setFilters, isFiltering, setIsFiltering }) => {
             }
           >
             {jobs.map((job) => (
-              <Select.Option value={job} key={job}>
-                {job}
+              <Select.Option value={job.name} key={job.name}>
+                {job.name}
               </Select.Option>
             ))}
           </Select>

@@ -17,12 +17,15 @@
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-elastic-carousel": "^0.6.0",
     "react-grid-gallery": "^0.5.5",
     "react-icons": "^3.9.0",
     "react-image": "^2.4.0",
+    "react-responsive": "^8.0.3",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "styled-components": "^5.0.1",
+    "video-react": "^0.14.1",
     "yup": "^0.28.3"
   },
   "scripts": {

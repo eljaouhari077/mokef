@@ -8,7 +8,9 @@ import styled from "styled-components";
 import { Flex } from "../../../components/shared/shared.styled";
 
 const SCard = styled(Card)`
+  grid-area: ${(props) => props.area};
   margin: 1rem;
+
   > div.ant-card-body {
     display: ${({ styled }) => (styled.isExpanded ? "block" : "none")};
   }
@@ -35,6 +37,7 @@ const ExpandableCard = ({
   children,
   openModal,
   showEdit,
+  area,
 }) => {
   const [isExpanded, setIsExpanded] = React.useState(false);
 
@@ -46,8 +49,18 @@ const ExpandableCard = ({
     }
   };
 
+  const isMobile = window.innerWidth <= 600;
+
+  React.useEffect(() => {
+    if (!isMobile) {
+      setIsExpanded(true);
+    }
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <SCard
+      area={area}
       styled={{ isExpanded }}
       title={
         <Flex align="center">
@@ -60,7 +73,7 @@ const ExpandableCard = ({
           {isOwnProfile && showEdit && (
             <FaRegEdit onClick={() => openModal()} />
           )}
-          {displayExpandIcon()}
+          {isMobile && displayExpandIcon()}
         </Spacing>
       }
     >

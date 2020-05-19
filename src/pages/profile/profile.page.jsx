@@ -14,6 +14,21 @@ import { syncUserOnUpdate, getUserAnnounces } from "../../utils/dao";
 import { FirebaseContext } from "../../firebase";
 import PicturesWall from "./gallery/pictures-wall";
 import UserInfo from "../../components/user-info/user-info";
+import styled from "styled-components";
+
+const Container = styled.div`
+  max-width: 1050px;
+  margin: 0 auto;
+
+  @media (min-width: 1000px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "info rating"
+      "announces announces"
+      "gallery gallery";
+  }
+`;
 
 const ProfilePage = ({ location }) => {
   const fb = React.useContext(FirebaseContext);
@@ -37,59 +52,65 @@ const ProfilePage = ({ location }) => {
   return (
     <div>
       <UserInfo />
-      <ExpandableCard
-        openModal={() => setIsDescriptionModalVisible(true)}
-        showEdit
-        isOwnProfile={isOwnProfile}
-        title="A propos"
-        titleIcon={
-          <IoMdInformationCircleOutline style={{ fontSize: "1.8rem" }} />
-        }
-      >
-        {user.profile.description ? (
-          <p>{user.profile.description}</p>
-        ) : (
-          <Empty />
-        )}
-      </ExpandableCard>
+      <Container>
+        <ExpandableCard
+          openModal={() => setIsDescriptionModalVisible(true)}
+          showEdit
+          isOwnProfile={isOwnProfile}
+          title="A propos"
+          area="info"
+          titleIcon={
+            <IoMdInformationCircleOutline style={{ fontSize: "1.8rem" }} />
+          }
+        >
+          {user.profile.description ? (
+            <p>{user.profile.description}</p>
+          ) : (
+            <Empty />
+          )}
+        </ExpandableCard>
 
-      <ExpandableCard
-        title="Contrats"
-        titleIcon={<FaFileContract style={{ fontSize: "1.5rem" }} />}
-      >
-        {announces ? (
-          announces.map((announce) => (
-            <Announce
-              key={announce.uid}
-              title={announce.title}
-              imageURL={announce.imageURL}
-              uid={announce.uid}
-            />
-          ))
-        ) : (
-          <Empty />
-        )}
-      </ExpandableCard>
+        <ExpandableCard
+          title="Contrats"
+          area="announces"
+          titleIcon={<FaFileContract style={{ fontSize: "1.5rem" }} />}
+        >
+          {announces ? (
+            announces.map((announce) => (
+              <Announce
+                key={announce.uid}
+                title={announce.title}
+                imageURL={announce.imageURL}
+                uid={announce.uid}
+              />
+            ))
+          ) : (
+            <Empty />
+          )}
+        </ExpandableCard>
 
-      <ExpandableCard
-        isOwnProfile={isOwnProfile}
-        title="Realisations"
-        titleIcon={<FaImages style={{ fontSize: "1.5rem" }} />}
-      >
-        <PicturesWall />
-      </ExpandableCard>
+        <ExpandableCard
+          isOwnProfile={isOwnProfile}
+          title="Realisations"
+          area="gallery"
+          titleIcon={<FaImages style={{ fontSize: "1.5rem" }} />}
+        >
+          <PicturesWall />
+        </ExpandableCard>
 
-      <ExpandableCard
-        title="Avis"
-        titleIcon={<MdRateReview style={{ fontSize: "1.5rem" }} />}
-      >
-        <Reviews />
-      </ExpandableCard>
+        <ExpandableCard
+          title="Avis"
+          area="rating"
+          titleIcon={<MdRateReview style={{ fontSize: "1.5rem" }} />}
+        >
+          <Reviews />
+        </ExpandableCard>
 
-      <DescriptionModal
-        isVisible={isDescriptionModalVisible}
-        closeModal={() => setIsDescriptionModalVisible(false)}
-      />
+        <DescriptionModal
+          isVisible={isDescriptionModalVisible}
+          closeModal={() => setIsDescriptionModalVisible(false)}
+        />
+      </Container>
     </div>
   );
 };

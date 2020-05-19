@@ -45,8 +45,8 @@ function FirstStep({ setCurrentStep, updateFormValues }) {
               onChange={(val) => props.setFieldValue("category", val)}
             >
               {jobs.map((job) => (
-                <Select.Option key={job} value={job}>
-                  {job}
+                <Select.Option key={job.name} value={job.name}>
+                  {job.name}
                 </Select.Option>
               ))}
             </CustomSelect>

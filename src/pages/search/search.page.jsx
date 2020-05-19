@@ -4,7 +4,7 @@ import { FirebaseContext } from "../../firebase";
 import { getAllAnnounces, getUserFromRef } from "../../utils/dao";
 import { getStorageFile } from "../../utils/storage";
 import SearchForm from "./search-form/search-form";
-import Announces from "./announces/announces";
+import Announces from "../../components/announces/announces";
 
 function SearchPage() {
   const [announces, setAnnounces] = React.useState([]);
