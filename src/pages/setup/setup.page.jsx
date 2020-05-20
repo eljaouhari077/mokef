@@ -22,6 +22,14 @@ const RadioGroup = styled(Radio.Group)`
 
 const Root = styled(Flex)`
   height: 110vh;
+
+  @media (max-height: 400px) {
+    height: 170vh;
+  }
+
+  @media (min-height: 750px) {
+    height: 90vh;
+  }
 `;
 
 const phoneRegExp = /(\+212|0)([ \-_/]*)(\d[ \-_/]*){9}/g;

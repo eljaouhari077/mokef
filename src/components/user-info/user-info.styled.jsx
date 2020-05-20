@@ -4,6 +4,14 @@ import Image from "react-image";
 export const Root = styled.div`
   background-color: var(--dark-blue);
   padding: 2rem 1rem;
+
+  > div {
+    @media (min-width: 600px) {
+      max-width: 1050px !important;
+      justify-content: flex-start !important;
+      margin: 0 auto;
+    }
+  }
 `;
 
 export const SImage = styled(Image)`

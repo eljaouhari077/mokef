@@ -30,6 +30,14 @@ const Container = styled.div`
   }
 `;
 
+const Announces = styled.div`
+  @media (min-width: 600px) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    grid-gap: 3rem;
+  }
+`;
+
 const ProfilePage = ({ location }) => {
   const fb = React.useContext(FirebaseContext);
   const { user, setUser } = React.useContext(UserContext);
@@ -75,18 +83,20 @@ const ProfilePage = ({ location }) => {
           area="announces"
           titleIcon={<FaFileContract style={{ fontSize: "1.5rem" }} />}
         >
-          {announces ? (
-            announces.map((announce) => (
-              <Announce
-                key={announce.uid}
-                title={announce.title}
-                imageURL={announce.imageURL}
-                uid={announce.uid}
-              />
-            ))
-          ) : (
-            <Empty />
-          )}
+          <Announces>
+            {announces ? (
+              announces.map((announce) => (
+                <Announce
+                  key={announce.uid}
+                  title={announce.title}
+                  imageURL={announce.imageURL}
+                  uid={announce.uid}
+                />
+              ))
+            ) : (
+              <Empty />
+            )}
+          </Announces>
         </ExpandableCard>
 
         <ExpandableCard

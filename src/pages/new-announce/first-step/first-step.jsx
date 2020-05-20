@@ -19,7 +19,7 @@ function FirstStep({ setCurrentStep, updateFormValues }) {
       <Formik
         initialValues={{
           title: "",
-          category: jobs[0],
+          category: jobs[0].name,
         }}
         validationSchema={Yup.object({
           title: Yup.string()

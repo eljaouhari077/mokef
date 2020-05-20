@@ -5,6 +5,8 @@ import { Divider } from "antd";
 
 export const AnnounceInfo = styled(Flex)`
   padding: 1rem;
+  max-width: 1050px;
+  margin: 0 auto;
 
   > button {
     text-align: center;
@@ -16,8 +18,13 @@ export const AnnounceInfo = styled(Flex)`
 
 export const SImage = styled(Image)`
   width: 100%;
-  height: 20rem;
+  max-height: 20rem;
   object-fit: cover;
+  cursor: pointer;
+
+  @media (min-width: 500px) {
+    max-height: 40rem;
+  }
 `;
 
 export const AdditionalInfo = styled(Flex)`
