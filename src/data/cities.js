@@ -19,5 +19,4 @@ export const cities = [
   "Nador",
   "Taza",
   "Khémisset",
-  "Autre",
 ];
