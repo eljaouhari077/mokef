@@ -13,6 +13,10 @@ const Root = styled(Flex)`
   height: 100%;
   background-color: #fff;
   flex-grow: 1;
+
+  > div {
+    width: 100%;
+  }
 `;
 
 const MenuIcon = styled(MenuFoldOutlined)`

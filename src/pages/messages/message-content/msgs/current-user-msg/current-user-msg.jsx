@@ -3,9 +3,10 @@ import styled from "styled-components";
 
 const Root = styled.div`
   padding: 1rem;
-  background-color: #fbfbfa;
+  background-color: #fafafa;
   margin: 1rem;
-  width: 30rem;
+  max-width: 35rem;
+  border-radius: 0.4rem;
 
   > p {
     margin: 0;
