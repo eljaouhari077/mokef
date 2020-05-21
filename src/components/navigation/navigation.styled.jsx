@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const Root = styled.div`
   display: flex;
@@ -26,4 +27,9 @@ export const NavList = styled.div`
     font-size: 1.6rem;
     margin: 0.5rem 0;
   }
+`;
+
+export const SLink = styled(Link)`
+  color: var(--blue);
+  cursor: pointer;
 `;

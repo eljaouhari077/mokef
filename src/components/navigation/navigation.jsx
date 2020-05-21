@@ -26,7 +26,6 @@ const Navigation = ({ location }) => {
     <Root>
       <MenuOutlined onClick={() => setIsDrawerVisible(true)} />
       <Logo />
-      <div />
 
       <Drawer
         visible={isDrawerVisible}
@@ -35,6 +34,7 @@ const Navigation = ({ location }) => {
       >
         {isLoggedIn ? <LoggedIn /> : <LoggedOut />}
       </Drawer>
+      <div />
     </Root>
   );
 };

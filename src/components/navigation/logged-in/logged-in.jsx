@@ -28,8 +28,9 @@ function LoggedIn() {
     <NavList>
       <Link to="/">Accueil</Link>
       <Link to="/profile">Profile</Link>
+      <Link to="/messages">Messages</Link>
       <LinkButton type="link" onClick={signOut}>
-        Sign Out
+        Deconnexion
       </LinkButton>
       <Annonce to="/announce/new">
         <Button type="primary">Nouvelle Annonce</Button>

@@ -13,6 +13,7 @@ import NewAnnouncePage from "./pages/new-announce/new-announce.page";
 import AnnouncePage from "./pages/announce/announce.page";
 import SearchPage from "./pages/search/search.page";
 import Stripe from "./components/stripe/stripe";
+import MessagesPage from "./pages/messages/messages";
 
 const App = () => {
   const fb = React.useContext(FirebaseContext);
@@ -28,6 +29,7 @@ const App = () => {
       <Navigation />
       <Switch>
         <Route path="/" exact component={HomePage} />
+        <PrivateRoute path="/messages" exact component={MessagesPage} />
         <PrivateRoute path="/profile" exact component={ProfilePage} />
         <PrivateRoute path="/profile/:id" exact component={ProfilePage} />
         <Route path="/login" exact component={LoginPage} />
