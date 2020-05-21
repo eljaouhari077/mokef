@@ -34,6 +34,10 @@ export const getUserFromRef = (fb, userRef) => {
   return userRef.get();
 };
 
+export const getUser = (fb, userId) => {
+  return fb.usersCollection().doc(userId).get();
+};
+
 export const saveAnnounce = (fb, announce) => {
   return fb.announcesCollection().add(announce);
 };
@@ -42,8 +46,8 @@ export const getAllAnnounces = (fb) => {
   return fb.announcesCollection().get();
 };
 
-export const getUserAnnounces = (fb, user) => {
-  const userRef = fb.usersCollection().doc(user.uid);
+export const getUserAnnounces = (fb, userId) => {
+  const userRef = fb.usersCollection().doc(userId);
   return fb.announcesCollection().where("user", "==", userRef).get();
 };
 

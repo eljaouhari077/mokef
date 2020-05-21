@@ -29,6 +29,7 @@ const App = () => {
       <Switch>
         <Route path="/" exact component={HomePage} />
         <PrivateRoute path="/profile" exact component={ProfilePage} />
+        <PrivateRoute path="/profile/:id" exact component={ProfilePage} />
         <Route path="/login" exact component={LoginPage} />
         <Route path="/setup" exact component={SetupPage} />
         <Route path="/paiement" exact component={Stripe} />
