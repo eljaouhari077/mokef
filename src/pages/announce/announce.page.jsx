@@ -14,12 +14,14 @@ import { withRouter } from "react-router-dom";
 import { getStorageFile } from "../../utils/storage";
 import ImagePreview from "../../components/image-preview/image-preview";
 import { SelectedAnnounceContext } from "../../contexts/selected-announce-context";
+import { UserContext } from "../../contexts/user-context";
 
 function AnnouncePage({ match, history }) {
   const [announceData, setAnnounceData] = React.useState(null);
   const [announceImage, setAnnounceImage] = React.useState(null);
   const [announceOwner, setAnnounceOwner] = React.useState(null);
   const [isPreviewVisible, setIsPreviewVisible] = React.useState(null);
+  const { user } = React.useContext(UserContext);
   const { setSelectedAnnounce } = React.useContext(SelectedAnnounceContext);
 
   const fb = React.useContext(FirebaseContext);
@@ -28,6 +30,8 @@ function AnnouncePage({ match, history }) {
     getAnnounceData(match.params.id);
     // eslint-disable-next-line
   }, []);
+
+  const isOwnAnnounce = () => announceData.user.id === user.uid;
 
   const getAnnounceData = async (anounceId) => {
     const result = await getAnnounce(fb, anounceId);
@@ -51,16 +55,18 @@ function AnnouncePage({ match, history }) {
         <div>
           {announceOwner && <UserInfo userToDisplay={announceOwner} />}
           <AnnounceInfo direction="column" align="start">
-            <Button
-              type="primary"
-              size="large"
-              onClick={() => {
-                setSelectedAnnounce(announceData);
-                history.push("/paiement");
-              }}
-            >
-              Continuer {announceData.prix}DH
-            </Button>
+            {!isOwnAnnounce() && (
+              <Button
+                type="primary"
+                size="large"
+                onClick={() => {
+                  setSelectedAnnounce(announceData);
+                  history.push("/paiement");
+                }}
+              >
+                Continuer {announceData.prix}DH
+              </Button>
+            )}
             {announceImage && (
               <SImage
                 src={announceImage}
