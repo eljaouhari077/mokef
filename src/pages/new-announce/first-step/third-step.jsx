@@ -44,9 +44,7 @@ function ThirdStep({ formValues, history }) {
               fb,
               `/announces/${formValues.imageFile.uid}`,
               formValues.imageFile
-            )
-              .then(() => console.log("Uploaded successfully"))
-              .catch((error) => console.error(error));
+            ).catch((error) => console.error(error));
           }
           const announce = {
             ..._.omit(formValues, "imageFile"),

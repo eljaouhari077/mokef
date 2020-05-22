@@ -21,9 +21,7 @@ export default withRouter(({ history }) => {
   const { selectedAnnounce } = React.useContext(SelectedAnnounceContext);
 
   React.useEffect(() => {
-    if (selectedAnnounce) {
-      console.log(selectedAnnounce);
-    } else {
+    if (!selectedAnnounce) {
       history.push("/");
     }
     // eslint-disable-next-line

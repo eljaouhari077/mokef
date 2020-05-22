@@ -1,7 +1,6 @@
 import React from "react";
 import { Menu } from "antd";
 import MessageUser from "./message-user/message-user";
-import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 
 const SMenu = styled(Menu)`
@@ -10,21 +9,27 @@ const SMenu = styled(Menu)`
   flex-basis: 20%;
 `;
 
-const MessageUsers = ({ areUsersVisible }) => {
+const MessageUsers = ({ areUsersVisible, contacts, setSelectedContact }) => {
   return (
     <>
       {areUsersVisible && (
-        <SMenu>
-          <SMenu.Item>
-            <MessageUser />
-          </SMenu.Item>
-          <SMenu.Item>
-            <MessageUser />
-          </SMenu.Item>
-          <SMenu.Item>
-            <MessageUser />
-          </SMenu.Item>
-        </SMenu>
+        <>
+          {contacts ? (
+            <SMenu>
+              {contacts.map((contact) => (
+                <SMenu.Item
+                  onClick={() => setSelectedContact(contact)}
+                  key={contact.email}
+                >
+                  <MessageUser
+                    name={contact.fullName}
+                    avatar={contact.avatarURL}
+                  />
+                </SMenu.Item>
+              ))}
+            </SMenu>
+          ) : null}
+        </>
       )}
     </>
   );

@@ -2,6 +2,9 @@ import React from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import styled from "styled-components";
 import { Card, Button } from "antd";
+import { UserContext } from "../../contexts/user-context";
+import { saveContract, getContracts, updateContract } from "../../utils/dao";
+import { FirebaseContext } from "../../firebase";
 
 const SCard = styled(Card)`
   margin: 0 auto;
@@ -18,6 +21,8 @@ const SCardElement = styled(CardElement)`
 `;
 
 export default ({ setIsSuccessful, selectedAnnounce }) => {
+  const { user } = React.useContext(UserContext);
+  const fb = React.useContext(FirebaseContext);
   const stripe = useStripe();
   const elements = useElements();
 
@@ -37,7 +42,7 @@ export default ({ setIsSuccessful, selectedAnnounce }) => {
     const cardElement = elements.getElement(CardElement);
 
     // Use your card Element with other Stripe.js APIs
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
+    const { error } = await stripe.createPaymentMethod({
       type: "card",
       card: cardElement,
     });
@@ -45,8 +50,22 @@ export default ({ setIsSuccessful, selectedAnnounce }) => {
     if (error) {
       console.log("[error]", error);
     } else {
-      setIsSuccessful(true);
-      console.log("[PaymentMethod]", paymentMethod);
+      getContracts(fb, selectedAnnounce.user.id, user.uid).then((res) => {
+        if (!res.empty) {
+          updateContract(fb, res.docs[0].id, selectedAnnounce.id).then(() => {
+            setIsSuccessful(true);
+          });
+        } else {
+          saveContract(
+            fb,
+            selectedAnnounce.user.id,
+            user.uid,
+            selectedAnnounce.id
+          ).then(() => {
+            setIsSuccessful(true);
+          });
+        }
+      });
     }
   };
 

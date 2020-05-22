@@ -54,3 +54,42 @@ export const getUserAnnounces = (fb, userId) => {
 export const getAnnounce = (fb, announceId) => {
   return fb.announcesCollection().doc(announceId).get();
 };
+
+export const saveContract = (fb, ownerId, clientId, subContractId) => {
+  return fb.contractsCollection().add({
+    ownerId,
+    clientId,
+    contracts: [subContractId],
+    messages: [],
+  });
+};
+
+export const getContracts = (fb, ownerId, clientId) => {
+  return fb
+    .contractsCollection()
+    .where("ownerId", "==", ownerId)
+    .where("clientId", "==", clientId)
+    .get();
+};
+
+export const getUserContracts = (fb, userId, field) => {
+  return fb.contractsCollection().where(field, "==", userId).get();
+};
+
+export const updateContract = (fb, contractId, subContractId) => {
+  return fb
+    .contractsCollection()
+    .doc(contractId)
+    .update({
+      contracts: firebase.firestore.FieldValue.arrayUnion(subContractId),
+    });
+};
+
+export const updateContractMessages = (fb, contractId, message) => {
+  return fb
+    .contractsCollection()
+    .doc(contractId)
+    .update({
+      messages: firebase.firestore.FieldValue.arrayUnion(message),
+    });
+};

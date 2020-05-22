@@ -2,6 +2,7 @@ import React from "react";
 import CurrentUserMsg from "./current-user-msg/current-user-msg";
 import OtherUserMsg from "./other-user-msg/other-user-msg";
 import { Flex } from "../../../../components/shared/shared.styled";
+import { UserContext } from "../../../../contexts/user-context.js";
 import styled from "styled-components";
 
 const Root = styled(Flex)`
@@ -29,32 +30,23 @@ const Root = styled(Flex)`
   }
 `;
 
-const MSGs = () => {
+const MSGs = ({ selectedContact }) => {
+  const { user } = React.useContext(UserContext);
+  const chatRef = React.useRef(null);
+
+  React.useEffect(() => {
+    chatRef.current.scrollTop = chatRef.current.scrollHeight;
+  }, [selectedContact]);
+
   return (
-    <Root direction="column">
-      <CurrentUserMsg />
-      <CurrentUserMsg />
-      <CurrentUserMsg />
-      <OtherUserMsg />
-      <OtherUserMsg />
-      <OtherUserMsg />
-      <CurrentUserMsg />
-      <CurrentUserMsg />
-      <OtherUserMsg />
-      <OtherUserMsg />
-      <OtherUserMsg />
-      <OtherUserMsg />
-      <OtherUserMsg />
-      <OtherUserMsg />
-      <OtherUserMsg />
-      <CurrentUserMsg />
-      <CurrentUserMsg />
-      <CurrentUserMsg />
-      <CurrentUserMsg />
-      <CurrentUserMsg />
-      <CurrentUserMsg />
-      <CurrentUserMsg />
-      <CurrentUserMsg />
+    <Root direction="column" ref={chatRef}>
+      {selectedContact.messages.map((msg, idx) =>
+        msg.userId === user.uid ? (
+          <CurrentUserMsg content={msg.content} key={idx} />
+        ) : (
+          <OtherUserMsg content={msg.content} key={idx} />
+        )
+      )}
     </Root>
   );
 };

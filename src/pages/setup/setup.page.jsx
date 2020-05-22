@@ -66,9 +66,11 @@ const SetupPage = ({ history }) => {
           })}
           onSubmit={(val) => {
             if (avatarFile) {
-              addStorageFile(fb, `/avatars/${avatarFile.uid}`, avatarFile)
-                .then(() => console.log("Uploaded successfully"))
-                .catch((error) => console.error(error));
+              addStorageFile(
+                fb,
+                `/avatars/${avatarFile.uid}`,
+                avatarFile
+              ).catch((error) => console.error(error));
             }
             const data = {
               ...val,

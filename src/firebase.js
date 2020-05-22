@@ -69,6 +69,10 @@ class Firebase {
     return this.db.collection("announces");
   };
 
+  contractsCollection = () => {
+    return this.db.collection("contracts");
+  };
+
   // Storage
   storageRef = (ref) => {
     return this.storage.ref().child(ref);

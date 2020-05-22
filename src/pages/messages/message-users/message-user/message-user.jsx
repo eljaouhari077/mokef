@@ -8,11 +8,11 @@ const SAvatar = styled(Avatar)`
   margin-right: 1rem;
 `;
 
-const MessageUser = () => {
+const MessageUser = ({ name, avatar }) => {
   return (
     <Root>
-      <SAvatar />
-      <span>UserUser</span>
+      <SAvatar src={avatar} />
+      <span>{name}</span>
     </Root>
   );
 };

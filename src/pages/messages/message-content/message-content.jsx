@@ -6,8 +6,11 @@ import {
   MessageOutlined,
 } from "@ant-design/icons";
 import { Flex } from "../../../components/shared/shared.styled";
-import { Input } from "antd";
+import { Input, Button } from "antd";
 import MSGs from "./msgs/msgs";
+import { updateContractMessages } from "../../../utils/dao";
+import { FirebaseContext } from "../../../firebase";
+import { UserContext } from "../../../contexts/user-context";
 
 const Root = styled(Flex)`
   height: 100%;
@@ -34,28 +37,57 @@ const STextArea = styled(Input.TextArea)`
   border: 0;
   margin: 0.5rem;
   flex: 1;
+  resize: none;
 `;
 
-const MessageIcon = styled(MessageOutlined)`
-  color: var(--blue);
-  font-size: 2.5rem;
-  padding: 0.5rem;
+const SButton = styled(Button)`
+  margin: 1rem;
 `;
 
-const MessageContent = ({ setAreUsersVisible, areUsersVisible }) => {
+const MessageContent = ({
+  setAreUsersVisible,
+  areUsersVisible,
+  selectedContact,
+}) => {
+  const [message, setMessage] = React.useState("");
+  const fb = React.useContext(FirebaseContext);
+  const { user } = React.useContext(UserContext);
+
+  const sendMessage = () => {
+    updateContractMessages(fb, selectedContact.contractId, {
+      userId: user.uid,
+      content: message,
+    }).then(() => setMessage(""));
+  };
+
   return (
     <Root direction="column" align="flex-start" justify="space-between">
-      <div>
-        <MenuIcon
-          as={areUsersVisible ? MenuFoldOutlined : MenuUnfoldOutlined}
-          onClick={() => setAreUsersVisible(!areUsersVisible)}
-        />
-        <MSGs />
-      </div>
-      <MessageInput align="center">
-        <STextArea rows={1} placeholder="Ecrivez un message..." />
-        <MessageIcon />
-      </MessageInput>
+      {selectedContact && (
+        <>
+          <div>
+            <MenuIcon
+              as={areUsersVisible ? MenuFoldOutlined : MenuUnfoldOutlined}
+              onClick={() => setAreUsersVisible(!areUsersVisible)}
+            />
+            <MSGs selectedContact={selectedContact} />
+          </div>
+          <MessageInput align="center">
+            <STextArea
+              rows={1}
+              placeholder="Ecrivez un message..."
+              onChange={(e) => setMessage(e.target.value)}
+              value={message}
+            />
+            <SButton
+              onClick={sendMessage}
+              type="primary"
+              shape="circle"
+              disabled={!message.length}
+              icon={<MessageOutlined />}
+            />
+          </MessageInput>
+        </>
+      )}
     </Root>
   );
 };

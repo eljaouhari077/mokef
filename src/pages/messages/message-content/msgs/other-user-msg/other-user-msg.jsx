@@ -14,10 +14,10 @@ const Root = styled.div`
   }
 `;
 
-const OtherUserMsg = () => {
+const OtherUserMsg = ({ content }) => {
   return (
     <Root>
-      <p>OtherUserMsg test test etstst test test stest</p>
+      <p>{content}</p>
     </Root>
   );
 };
