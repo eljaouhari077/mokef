@@ -40,11 +40,14 @@ const Announces = styled.div`
   }
 `;
 
-const ProfilePage = ({ location, match }) => {
+const ProfilePage = ({ location, match, history }) => {
   const fb = React.useContext(FirebaseContext);
   const { user, setUser } = React.useContext(UserContext);
   const [pageUser, setPageUser] = React.useState(null);
   const [announces, setAnnounces] = React.useState(null);
+  const [reviews, setReviews] = React.useState([]);
+  const [avgReviews, setAvgReviews] = React.useState(0);
+  const [totalReviews, setTotalReviews] = React.useState(0);
 
   const [
     isDescriptionModalVisible,
@@ -52,40 +55,88 @@ const ProfilePage = ({ location, match }) => {
   ] = React.useState(false);
   const isOwnProfile = location.pathname === "/profile";
 
+  const getAverageAndTotalReviews = (usr) => {
+    let total = 0;
+    for (let i = 0; i < usr.reviews.length; i++) {
+      total += usr.reviews[i].rating;
+    }
+    setAvgReviews(total / usr.reviews.length);
+    setTotalReviews(usr.reviews.length);
+  };
+
+  const getReviews = (usr) => {
+    if (usr.reviews) {
+      return Promise.all(
+        usr.reviews.map((review) => getAdditionalReviewInfo(review))
+      ).then((result) => setReviews(result));
+    }
+  };
+
+  const getAdditionalReviewInfo = async (review) => {
+    const usr = await getUser(fb, review.userId);
+    const avatarURL = await getStorageFile(fb, usr.data().avatarURL);
+
+    return {
+      fullName: usr.data().fullName,
+      review,
+      avatarURL,
+    };
+  };
+
   React.useEffect(() => {
     if (isOwnProfile) {
       syncUserOnUpdate(fb, user, setUser);
       getUserAnnounces(fb, user.uid).then(({ docs }) => {
         setAnnounces(docs.map((doc) => ({ ...doc.data(), uid: doc.id })));
       });
+      getReviews(user);
+      getAverageAndTotalReviews(user);
     } else {
+      if (!match.params.id) {
+        return history.push("/");
+      }
       getUserAnnounces(fb, match.params.id).then(({ docs }) => {
         setAnnounces(docs.map((doc) => ({ ...doc.data(), uid: doc.id })));
       });
-      getUser(fb, match.params.id).then((doc) => {
-        Promise.all(
-          doc
-            .data()
-            .profile.gallery.map((img) => getStorageFile(fb, `gallery/${img}`))
-        ).then((res) =>
-          setPageUser({
-            ...doc.data(),
-            profile: {
-              ...doc.data().profile,
-              gallery: res,
-            },
-          })
-        );
-      });
+      getUser(fb, match.params.id)
+        .then((doc) => {
+          console.log("doc", doc);
+          getReviews(doc.data());
+          getAverageAndTotalReviews(doc.data());
+          Promise.all(
+            doc
+              .data()
+              .profile.gallery.map((img) =>
+                getStorageFile(fb, `gallery/${img}`)
+              )
+          ).then((res) =>
+            setPageUser({
+              ...doc.data(),
+              profile: {
+                ...doc.data().profile,
+                gallery: res,
+              },
+            })
+          );
+        })
+        .catch((err) => history.push("/"));
     }
     // eslint-disable-next-line
   }, []);
+
+  React.useEffect(() => {
+    console.log(announces);
+  }, [announces]);
 
   return (
     <>
       {(isOwnProfile || pageUser) && (
         <div>
-          <UserInfo userToDisplay={pageUser} />
+          <UserInfo
+            userToDisplay={pageUser}
+            avgReviews={avgReviews}
+            totalReviews={totalReviews}
+          />
           <Container>
             <ExpandableCard
               openModal={() => setIsDescriptionModalVisible(true)}
@@ -145,7 +196,7 @@ const ProfilePage = ({ location, match }) => {
               area="rating"
               titleIcon={<MdRateReview style={{ fontSize: "1.5rem" }} />}
             >
-              <Reviews />
+              <Reviews reviews={reviews} />
             </ExpandableCard>
 
             <DescriptionModal
@@ -163,6 +214,6 @@ ProfilePage.propTypes = {
   location: PropTypes.object.isRequired,
 };
 
-export default ({ location, match }) => {
-  return <ProfilePage location={location} match={match} />;
+export default ({ location, match, history }) => {
+  return <ProfilePage location={location} match={match} history={history} />;
 };

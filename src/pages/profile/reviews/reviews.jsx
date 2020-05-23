@@ -1,91 +1,39 @@
 import React from "react";
-import { List, Avatar } from "antd";
-import Sabbath from "../../../assets/sabbath.jpg";
+import { List, Avatar, Empty } from "antd";
 import { FaStar } from "react-icons/fa";
 import { Flex } from "../../../components/shared/shared.styled";
 
-const data = [
-  {
-    title: "Ant Design Title 1",
-  },
-  {
-    title: "Ant Design Title 2",
-  },
-  {
-    title: "Ant Design Title 3",
-  },
-  {
-    title: "Ant Design Title 4",
-  },
-  {
-    title: "Ant Design Title 4",
-  },
-  {
-    title: "Ant Design Title 4",
-  },
-  {
-    title: "Ant Design Title 4",
-  },
-  {
-    title: "Ant Design Title 4",
-  },
-  {
-    title: "Ant Design Title 4",
-  },
-  {
-    title: "Ant Design Title 4",
-  },
-  {
-    title: "Ant Design Title 4",
-  },
-  {
-    title: "Ant Design Title 4",
-  },
-  {
-    title: "Ant Design Title 4",
-  },
-  {
-    title: "Ant Design Title 4",
-  },
-  {
-    title: "Ant Design Title 4",
-  },
-  {
-    title: "Ant Design Title 4",
-  },
-  {
-    title: "Ant Design Title 4",
-  },
-  {
-    title: "Ant Design Title 44",
-  },
-];
-
-const Reviews = () => {
+const Reviews = ({ reviews }) => {
   return (
-    <List
-      pagination={{
-        pageSize: 4,
-      }}
-      dataSource={data}
-      renderItem={(item) => (
-        <List.Item>
-          <List.Item.Meta
-            avatar={<Avatar src={Sabbath} />}
-            title={
-              <Flex justify="space-between">
-                <span>{item.title}</span>
-                <div>
-                  <FaStar color="#f1c40f" />
-                  <span>4.6</span>
-                </div>
-              </Flex>
-            }
-            description="Ant Design, a design language for background applications"
-          />
-        </List.Item>
+    <>
+      {reviews.length ? (
+        <List
+          pagination={{
+            pageSize: 4,
+          }}
+          dataSource={reviews}
+          renderItem={(review) => (
+            <List.Item>
+              <List.Item.Meta
+                avatar={<Avatar src={review.avatarURL} />}
+                title={
+                  <Flex justify="space-between">
+                    <span>{review.fullName}</span>
+                    <div>
+                      <FaStar color="#f1c40f" />
+                      <span>{review.review.rating}</span>
+                    </div>
+                  </Flex>
+                }
+                description={review.review.review}
+              />
+            </List.Item>
+          )}
+        ></List>
+      ) : (
+        <Empty />
       )}
-    ></List>
+    </>
   );
 };
 

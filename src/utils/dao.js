@@ -38,6 +38,15 @@ export const getUser = (fb, userId) => {
   return fb.usersCollection().doc(userId).get();
 };
 
+export const addReview = (fb, userId, review) => {
+  return fb
+    .usersCollection()
+    .doc(userId)
+    .update({
+      reviews: firebase.firestore.FieldValue.arrayUnion(review),
+    });
+};
+
 export const saveAnnounce = (fb, announce) => {
   return fb.announcesCollection().add(announce);
 };

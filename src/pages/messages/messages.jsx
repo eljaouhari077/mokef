@@ -31,6 +31,7 @@ const MessagesPage = () => {
               messages: doc.data().messages,
               avatarURL: img,
               contractId: doc.id,
+              userId: usr.id,
             }))
           )
         )
@@ -46,6 +47,7 @@ const MessagesPage = () => {
         setContacts([...owner, ...client]);
       });
     });
+    // eslint-disable-next-line
   }, []);
 
   React.useEffect(() => {
@@ -54,6 +56,7 @@ const MessagesPage = () => {
         contacts.find((val) => val.contractId === selectedContact.contractId)
       );
     }
+    // eslint-disable-next-line
   }, [contacts]);
 
   return (

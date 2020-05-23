@@ -11,6 +11,7 @@ import MSGs from "./msgs/msgs";
 import { updateContractMessages } from "../../../utils/dao";
 import { FirebaseContext } from "../../../firebase";
 import { UserContext } from "../../../contexts/user-context";
+import ReviewModal from "./review-modal/review-modal";
 
 const Root = styled(Flex)`
   height: 100%;
@@ -50,6 +51,7 @@ const MessageContent = ({
   selectedContact,
 }) => {
   const [message, setMessage] = React.useState("");
+  const [isReviewModalVisible, setIsReviewModalVisible] = React.useState(false);
   const fb = React.useContext(FirebaseContext);
   const { user } = React.useContext(UserContext);
 
@@ -65,10 +67,22 @@ const MessageContent = ({
       {selectedContact && (
         <>
           <div>
-            <MenuIcon
-              as={areUsersVisible ? MenuFoldOutlined : MenuUnfoldOutlined}
-              onClick={() => setAreUsersVisible(!areUsersVisible)}
-            />
+            <Flex
+              align="center"
+              justify="space-between"
+              style={{ padding: "0 1rem" }}
+            >
+              <MenuIcon
+                as={areUsersVisible ? MenuFoldOutlined : MenuUnfoldOutlined}
+                onClick={() => setAreUsersVisible(!areUsersVisible)}
+              />
+              <Button
+                type="primary"
+                onClick={() => setIsReviewModalVisible(true)}
+              >
+                Ajouter un avis
+              </Button>
+            </Flex>
             <MSGs selectedContact={selectedContact} />
           </div>
           <MessageInput align="center">
@@ -86,6 +100,11 @@ const MessageContent = ({
               icon={<MessageOutlined />}
             />
           </MessageInput>
+          <ReviewModal
+            isVisible={isReviewModalVisible}
+            setIsVisible={setIsReviewModalVisible}
+            selectedContact={selectedContact}
+          />
         </>
       )}
     </Root>

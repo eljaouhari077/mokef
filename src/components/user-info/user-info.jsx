@@ -10,7 +10,7 @@ import { getStorageFile } from "../../utils/storage";
 import { MdLocationOn } from "react-icons/md";
 import { FaUserAlt } from "react-icons/fa";
 
-function UserInfo({ userToDisplay }) {
+function UserInfo({ userToDisplay, avgReviews, totalReviews }) {
   const [avatar, setAvatar] = React.useState(Avatar);
   const [userData, setUserData] = React.useState(null);
   const { user } = React.useContext(UserContext);
@@ -50,9 +50,9 @@ function UserInfo({ userToDisplay }) {
             <UserInformations>
               <h3>{userData.fullName}</h3>
               <Flex align="baseline">
-                <Rate disabled defaultValue={4.5} allowHalf={true} />
+                <Rate disabled defaultValue={avgReviews} allowHalf={true} />
                 <Span>
-                  4.6 <span>(211)</span>
+                  {avgReviews} <span>({totalReviews})</span>
                 </Span>
               </Flex>
               <div>

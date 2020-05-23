@@ -5,6 +5,7 @@ import { Flex } from "../../../../components/shared/shared.styled";
 
 const Root = styled(Flex)`
   flex-basis: 50%;
+  margin-top: 1rem;
 
   > h4 {
     font-size: 2.2rem;

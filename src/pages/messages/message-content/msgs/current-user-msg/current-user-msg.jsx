@@ -6,6 +6,7 @@ const Root = styled.div`
   background-color: #fafafa;
   margin: 1rem;
   max-width: 35rem;
+  align-self: flex-start;
   border-radius: 0.4rem;
 
   > p {

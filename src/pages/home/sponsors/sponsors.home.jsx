@@ -13,6 +13,7 @@ const Root = styled(Flex)`
 const Sponsor = styled(Sponsor1)`
   height: 10rem;
   width: 20rem;
+  margin: 2rem 0;
 `;
 
 const Sponsors = () => {
