@@ -2,6 +2,7 @@ import React from "react";
 import { Player } from "video-react";
 import Description from "./description/description.video";
 import styled from "styled-components";
+import Video from "../../../assets/video.mp4";
 import DesktopBreakpoint from "../../../components/responsiveness/desktop_breakpoint";
 import LaptopBreakpoint from "../../../components/responsiveness/laptop_breakpoint";
 
@@ -18,14 +19,10 @@ const VideoContainer = () => {
   return (
     <Root>
       <DesktopBreakpoint>
-        <Player
-          src="https://www.youtube.com/watch?v=nPuwV4238_w"
-          fluid={false}
-          height={350}
-        />
+        <Player src={Video} fluid={false} height={340} />
       </DesktopBreakpoint>
       <LaptopBreakpoint>
-        <Player src="https://www.youtube.com/watch?v=nPuwV4238_w" />
+        <Player src={Video} />
       </LaptopBreakpoint>
       <Description />
     </Root>

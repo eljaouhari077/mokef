@@ -2,7 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Input, Select } from "antd";
 import { jobs } from "../../../data/jobs";
-import Criteria from "./criteria/criteria";
+import { withRouter } from "react-router-dom";
+import queryString from "query-string";
 
 const Root = styled.div`
   background-color: var(--dark-blue);
@@ -10,33 +11,47 @@ const Root = styled.div`
   > div {
     width: 90vw;
     margin: 0 auto;
+
+    @media (min-width: 600px) {
+      width: 55rem;
+    }
   }
 `;
 
-const SearchForm = ({ filters, setFilters, isFiltering, setIsFiltering }) => {
+const SearchForm = ({
+  searchTerm,
+  setSearchTerm,
+  category,
+  setCategory,
+  location,
+}) => {
+  React.useEffect(() => {
+    if (location.search) {
+      const parsedQueryString = queryString.parse(location.search);
+      if (parsedQueryString.query) {
+        setSearchTerm(parsedQueryString.query);
+      }
+      if (parsedQueryString.cat) {
+        setCategory(parsedQueryString.cat);
+      }
+    }
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <Root>
       <div>
         <Input.Group>
           <Input
             style={{ width: "65%" }}
-            onChange={(e) =>
-              setFilters({
-                ...filters,
-                searchTerm: e.target.value,
-              })
-            }
+            onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="ex: Youness"
+            value={searchTerm}
           />
           <Select
-            defaultValue={jobs[0]}
+            value={category}
             style={{ width: "35%" }}
-            onChange={(e) =>
-              setFilters({
-                ...filters,
-                category: e,
-              })
-            }
+            onChange={(e) => setCategory(e)}
           >
             {jobs.map((job) => (
               <Select.Option value={job.name} key={job.name}>
@@ -45,16 +60,9 @@ const SearchForm = ({ filters, setFilters, isFiltering, setIsFiltering }) => {
             ))}
           </Select>
         </Input.Group>
-        <span
-          onClick={() => setIsFiltering(!isFiltering)}
-          style={{ color: "#fff" }}
-        >
-          {isFiltering ? "Enlever Filtre" : "Filtrer"}
-        </span>
-        {isFiltering && <Criteria />}
       </div>
     </Root>
   );
 };
 
-export default SearchForm;
+export default withRouter(SearchForm);

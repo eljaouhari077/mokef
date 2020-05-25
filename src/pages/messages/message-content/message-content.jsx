@@ -76,12 +76,14 @@ const MessageContent = ({
                 as={areUsersVisible ? MenuFoldOutlined : MenuUnfoldOutlined}
                 onClick={() => setAreUsersVisible(!areUsersVisible)}
               />
-              <Button
-                type="primary"
-                onClick={() => setIsReviewModalVisible(true)}
-              >
-                Ajouter un avis
-              </Button>
+              {selectedContact.canAddReview && (
+                <Button
+                  type="primary"
+                  onClick={() => setIsReviewModalVisible(true)}
+                >
+                  Ajouter un avis
+                </Button>
+              )}
             </Flex>
             <MSGs selectedContact={selectedContact} />
           </div>

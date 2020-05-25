@@ -56,12 +56,14 @@ const ProfilePage = ({ location, match, history }) => {
   const isOwnProfile = location.pathname === "/profile";
 
   const getAverageAndTotalReviews = (usr) => {
-    let total = 0;
-    for (let i = 0; i < usr.reviews.length; i++) {
-      total += usr.reviews[i].rating;
+    if (usr.reviews) {
+      let total = 0;
+      for (let i = 0; i < usr.reviews.length; i++) {
+        total += usr.reviews[i].rating;
+      }
+      setAvgReviews(total / usr.reviews.length);
+      setTotalReviews(usr.reviews.length);
     }
-    setAvgReviews(total / usr.reviews.length);
-    setTotalReviews(usr.reviews.length);
   };
 
   const getReviews = (usr) => {

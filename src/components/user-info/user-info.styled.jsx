@@ -6,6 +6,10 @@ export const Root = styled.div`
   padding: 2rem 1rem;
 
   > div {
+    > * {
+      cursor: pointer;
+    }
+
     @media (min-width: 600px) {
       max-width: 1050px !important;
       justify-content: flex-start !important;

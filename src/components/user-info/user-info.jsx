@@ -9,14 +9,22 @@ import moment from "moment";
 import { getStorageFile } from "../../utils/storage";
 import { MdLocationOn } from "react-icons/md";
 import { FaUserAlt } from "react-icons/fa";
+import { withRouter } from "react-router-dom";
 
-function UserInfo({ userToDisplay, avgReviews, totalReviews }) {
+function UserInfo({
+  userToDisplay,
+  avgReviews,
+  totalReviews,
+  history,
+  location,
+}) {
   const [avatar, setAvatar] = React.useState(Avatar);
   const [userData, setUserData] = React.useState(null);
   const { user } = React.useContext(UserContext);
   const fb = React.useContext(FirebaseContext);
 
   React.useEffect(() => {
+    console.log(userToDisplay);
     userToDisplay ? setUserData(userToDisplay) : setUserData(user);
     // eslint-disable-next-line
   }, []);
@@ -44,7 +52,12 @@ function UserInfo({ userToDisplay, avgReviews, totalReviews }) {
   return (
     <>
       {userData && (
-        <Root>
+        <Root
+          onClick={() => {
+            if (!location.pathname.includes("profile"))
+              history.push(`/profile/${userToDisplay.uid}`);
+          }}
+        >
           <Flex justify="center" align="center">
             <SImage src={avatar} alt="Avatar" />
             <UserInformations>
@@ -71,4 +84,4 @@ function UserInfo({ userToDisplay, avgReviews, totalReviews }) {
   );
 }
 
-export default UserInfo;
+export default withRouter(UserInfo);

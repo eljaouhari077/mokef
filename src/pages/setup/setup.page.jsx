@@ -2,10 +2,11 @@ import React from "react";
 import _ from "lodash";
 import PropTypes from "prop-types";
 import { CardContainer, Flex } from "../../components/shared/shared.styled";
-import { Card, Button, Radio, message } from "antd";
+import { Card, Button, Radio, message, Select } from "antd";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import CustomInput from "../../components/custom-input/custom-input";
+import CustomSelect from "../../components/custom-input/custom-select";
 import { UserContext } from "../../contexts/user-context";
 import { FirebaseContext } from "../../firebase";
 
@@ -13,6 +14,7 @@ import styled from "styled-components";
 import { updateUserWithAdditionalInformations } from "../../utils/dao";
 import ImageUpload from "../../components/image-upload/image-upload";
 import { addStorageFile } from "../../utils/storage";
+import { cities } from "../../data/cities";
 
 const RadioGroup = styled(Radio.Group)`
   width: 100%;
@@ -32,7 +34,7 @@ const Root = styled(Flex)`
   }
 `;
 
-const phoneRegExp = /(\+212|0)([ \-_/]*)(\d[ \-_/]*){9}/g;
+const phoneRegExp = /^[0-9]{9}$/g;
 
 const SetupPage = ({ history }) => {
   const fb = React.useContext(FirebaseContext);
@@ -51,18 +53,15 @@ const SetupPage = ({ history }) => {
           initialValues={{
             fullName: "",
             address: "",
-            ville: "",
+            ville: "Agadir",
             phoneNumber: "",
-            role: "freelancer",
             gender: "homme",
           }}
           validationSchema={Yup.object({
             fullName: Yup.string().required("Nom Complet est necessaire"),
-            ville: Yup.string().required("Ville est necessaire"),
-            phoneNumber: Yup.string().matches(
-              phoneRegExp,
-              "Numero doit etre valide"
-            ),
+            phoneNumber: Yup.string()
+              .required("Ce champ est requis")
+              .matches(phoneRegExp, "Numero doit etre valide"),
           })}
           onSubmit={(val) => {
             if (avatarFile) {
@@ -97,7 +96,17 @@ const SetupPage = ({ history }) => {
                     label="Nom Complet"
                   />
                   <CustomInput name="address" type="text" label="Adresse" />
-                  <CustomInput name="ville" type="text" label="Ville" />
+                  <CustomSelect
+                    label="Ville"
+                    name="ville"
+                    onChange={(val) => formikProps.setFieldValue("ville", val)}
+                  >
+                    {cities.map((city) => (
+                      <Select.Option key={city} value={city}>
+                        {city}
+                      </Select.Option>
+                    ))}
+                  </CustomSelect>{" "}
                   {/* <CustomInput name="email" type="email" label="Addresse Email" /> */}
                   <CustomInput
                     addonBefore="+212"
@@ -105,14 +114,6 @@ const SetupPage = ({ history }) => {
                     type="text"
                     label="Numero de telephone"
                   />
-                  <RadioGroup
-                    defaultValue="freelancer"
-                    onChange={(e) => (formikProps.values.role = e.target.value)}
-                    buttonStyle="solid"
-                  >
-                    <Radio.Button value="freelancer">Freelancer</Radio.Button>
-                    <Radio.Button value="client">Client</Radio.Button>
-                  </RadioGroup>
                   <RadioGroup
                     defaultValue="homme"
                     onChange={(e) =>

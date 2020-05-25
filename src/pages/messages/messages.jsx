@@ -32,6 +32,7 @@ const MessagesPage = () => {
               avatarURL: img,
               contractId: doc.id,
               userId: usr.id,
+              canAddReview: type === "clientId" ? true : false,
             }))
           )
         )

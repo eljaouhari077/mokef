@@ -5,24 +5,13 @@ import { getAllAnnounces, getUserFromRef } from "../../utils/dao";
 import { getStorageFile } from "../../utils/storage";
 import SearchForm from "./search-form/search-form";
 import Announces from "../../components/announces/announces";
+import { withRouter } from "react-router-dom";
 
 function SearchPage() {
   const [announces, setAnnounces] = React.useState([]);
   const [filteredAnnounces, setFilteredAnnounces] = React.useState([]);
-  const [isFiltering, setIsFiltering] = React.useState(false);
-  const [filters, setFilters] = React.useState({
-    category: "Electricien",
-    searchTerm: "",
-    price: {
-      min: 0,
-      max: 10000,
-    },
-    rating: {
-      min: 0,
-      max: 5,
-    },
-    city: "Casablanca",
-  });
+  const [category, setCategory] = React.useState("");
+  const [searchTerm, setSearchTerm] = React.useState("Electricien");
   const fb = React.useContext(FirebaseContext);
 
   React.useEffect(() => {
@@ -35,42 +24,21 @@ function SearchPage() {
       updateFilteredAnnounces();
     }
     // eslint-disable-next-line
-  }, [announces, filters]);
+  }, [announces, searchTerm, category]);
 
   const updateFilteredAnnounces = () => {
     const filterBySearchTerm = (listToFilter) =>
       listToFilter.filter(
         (item) =>
-          item.title.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
-          item.description
-            .toLowerCase()
-            .includes(filters.searchTerm.toLowerCase())
+          item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          item.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          item.user.fullName.toLowerCase().includes(searchTerm.toLowerCase())
       );
     const filterByCategory = (listToFilter) =>
-      listToFilter.filter((item) => item.category === filters.category);
-    const filterByPrice = (listToFilter) =>
-      listToFilter.filter(
-        (item) =>
-          item.price >= filters.price.min && item.price <= filters.price.max
-      );
-    const filterByRating = (listToFilter) =>
-      listToFilter.filter(
-        (item) =>
-          item.user.rating >= filters.rating.min &&
-          item.user.rating <= filters.rating.max
-      );
-    const filterByCity = (listToFilter) => {
-      listToFilter.filter((item) => item.ville === filters.city);
-    };
+      listToFilter.filter((item) => item.category === category);
 
     let filteredAnnounces_ = filterBySearchTerm(announces);
     filteredAnnounces_ = filterByCategory(filteredAnnounces_);
-
-    if (isFiltering) {
-      filteredAnnounces_ = filterByPrice(filteredAnnounces_);
-      filteredAnnounces_ = filterByRating(filteredAnnounces_);
-      filteredAnnounces_ = filterByCity(filteredAnnounces_);
-    }
 
     setFilteredAnnounces(filteredAnnounces_);
   };
@@ -105,10 +73,10 @@ function SearchPage() {
       {announces.length > 0 && (
         <div>
           <SearchForm
-            filters={filters}
-            setFilters={setFilters}
-            isFiltering={isFiltering}
-            setIsFiltering={setIsFiltering}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            category={category}
+            setCategory={setCategory}
           />
           <Announces announces={filteredAnnounces} />
         </div>
@@ -117,4 +85,4 @@ function SearchPage() {
   );
 }
 
-export default SearchPage;
+export default withRouter(SearchPage);

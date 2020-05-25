@@ -30,7 +30,7 @@ export default withRouter(({ history }) => {
   return (
     <>
       {selectedAnnounce ? (
-        <Root align="center" justify="center">
+        <Root direction="column" align="center" justify="center">
           <Elements stripe={stripePromise}>
             {isSuccessful ? (
               <Result
@@ -44,6 +44,11 @@ export default withRouter(({ history }) => {
               />
             )}
           </Elements>
+          {!isSuccessful && (
+            <span style={{ textAlign: "center", margin: "0 auto" }}>
+              Entrez 4242 4242 4242 4242 pour tester le paiement
+            </span>
+          )}
         </Root>
       ) : (
         <Redirect to="/" />

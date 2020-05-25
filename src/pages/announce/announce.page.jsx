@@ -41,7 +41,7 @@ function AnnouncePage({ match, history }) {
     setAnnounceData({ ...result.data(), id: result.id });
 
     const owner = await getUserFromRef(fb, result.data().user);
-    setAnnounceOwner(owner.data());
+    setAnnounceOwner({ ...owner.data(), uid: owner.id });
 
     if (result.data().imageURL) {
       const image = await getStorageFile(fb, result.data().imageURL);
