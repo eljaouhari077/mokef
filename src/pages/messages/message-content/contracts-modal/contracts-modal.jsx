@@ -22,7 +22,7 @@ const ContractsModal = ({
   }, [selectedContact]);
 
   React.useEffect(() => {
-    console.log(sharedContracts);
+    console.log("test", sharedContracts);
   }, [sharedContracts]);
 
   const getSharedContracts = async () => {
