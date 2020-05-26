@@ -46,6 +46,7 @@ const AnnouncesComp = ({ announces, history, isHome }) => {
               <span>{announce.ville}</span>
             </>,
             <>
+              {console.log(announce)}
               <FaStar color="#f1c40f" />
               <Span>
                 {announce.avgReviews} <span>({announce.totalReviews})</span>

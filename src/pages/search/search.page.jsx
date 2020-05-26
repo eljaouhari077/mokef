@@ -25,6 +25,24 @@ function SearchPage() {
   const [city, setCity] = React.useState("Tous");
   const fb = React.useContext(FirebaseContext);
 
+  const getAverageAndTotalReviews = (usr) => {
+    if (usr.reviews) {
+      let total = 0;
+      for (let i = 0; i < usr.reviews.length; i++) {
+        total += usr.reviews[i].rating;
+      }
+      return {
+        avgReviews: total / usr.reviews.length,
+        totalReviews: usr.reviews.length,
+      };
+    } else {
+      return {
+        avgReviews: 0,
+        totalReviews: 0,
+      };
+    }
+  };
+
   React.useEffect(() => {
     getAnnounces();
     // eslint-disable-next-line
@@ -82,11 +100,15 @@ function SearchPage() {
           return getStorageFile(fb, announce.user.avatarURL).then(
             (avatarURL) => ({
               ...announce,
+              ...getAverageAndTotalReviews(announce.user),
               user: { ...announce.user, avatarURL },
             })
           );
         } else {
-          return announce;
+          return {
+            ...announce,
+            ...getAverageAndTotalReviews(announce.user),
+          };
         }
       })
     );
