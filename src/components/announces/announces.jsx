@@ -24,7 +24,7 @@ const Span = styled.span`
   }
 `;
 
-const AnnouncesComp = ({ announces, history }) => {
+const AnnouncesComp = ({ announces, history, isHome }) => {
   const getAverageAndTotalReviews = (usr) => {
     if (usr.reviews) {
       let total = 0;
@@ -55,6 +55,7 @@ const AnnouncesComp = ({ announces, history }) => {
               <span>{announce.ville}</span>
             </>,
             <>
+              {console.log(announce)}
               <FaStar color="#f1c40f" />
               <Span>
                 {getAverageAndTotalReviews(announce.user).avgReviews}{" "}

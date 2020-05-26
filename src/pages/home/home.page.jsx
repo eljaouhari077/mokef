@@ -81,11 +81,11 @@ const HomePage = () => {
     <>
       <TabletBreakpoint>
         <Container>
-          <Announces announces={announces} />
+          <Announces announces={announces} isHome={true} />
         </Container>
       </TabletBreakpoint>
       <PhoneBreakpoint>
-        <Announces announces={announces} />
+        <Announces announces={announces} isHome={true} />
       </PhoneBreakpoint>
     </>
   );
