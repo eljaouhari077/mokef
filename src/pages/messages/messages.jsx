@@ -25,17 +25,28 @@ const MessagesPage = () => {
     getUserContracts(fb, user.uid, type).then((res) =>
       Promise.all(
         res.docs.map((doc) =>
-          getUser(fb, doc.data()[otherType]).then((usr) =>
-            getStorageFile(fb, usr.data().avatarURL).then((img) => ({
-              ...usr.data(),
-              messages: doc.data().messages,
-              contracts: doc.data().contracts,
-              avatarURL: img,
-              contractId: doc.id,
-              userId: usr.id,
-              canAddReview: type === "clientId" ? true : false,
-            }))
-          )
+          getUser(fb, doc.data()[otherType]).then((usr) => {
+            if (usr.data().avatarURL) {
+              return getStorageFile(fb, usr.data().avatarURL).then((img) => ({
+                ...usr.data(),
+                messages: doc.data().messages,
+                contracts: doc.data().contracts,
+                avatarURL: img,
+                contractId: doc.id,
+                userId: usr.id,
+                canAddReview: type === "clientId" ? true : false,
+              }));
+            } else {
+              return {
+                ...usr.data(),
+                messages: doc.data().messages,
+                contracts: doc.data().contracts,
+                contractId: doc.id,
+                userId: usr.id,
+                canAddReview: type === "clientId" ? true : false,
+              };
+            }
+          })
         )
       )
     );

@@ -21,10 +21,6 @@ const ContractsModal = ({
     // eslint-disable-next-line
   }, [selectedContact]);
 
-  React.useEffect(() => {
-    console.log(sharedContracts);
-  }, [sharedContracts]);
-
   const getSharedContracts = async () => {
     setSharedContracts(
       await Promise.all(

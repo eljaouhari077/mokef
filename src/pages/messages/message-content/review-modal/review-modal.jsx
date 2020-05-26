@@ -21,7 +21,6 @@ const ReviewModal = ({ isVisible, setIsVisible, selectedContact }) => {
   const { user } = React.useContext(UserContext);
 
   const handleReviewAdd = () => {
-    console.log(selectedContact);
     addReview(fb, selectedContact.userId, {
       userId: user.uid,
       review,

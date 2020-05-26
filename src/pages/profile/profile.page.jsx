@@ -102,7 +102,6 @@ const ProfilePage = ({ location, match, history }) => {
       });
       getUser(fb, match.params.id)
         .then((doc) => {
-          console.log("doc", doc);
           getReviews(doc.data());
           getAverageAndTotalReviews(doc.data());
           Promise.all(
@@ -125,10 +124,6 @@ const ProfilePage = ({ location, match, history }) => {
     }
     // eslint-disable-next-line
   }, []);
-
-  React.useEffect(() => {
-    console.log(announces);
-  }, [announces]);
 
   return (
     <>

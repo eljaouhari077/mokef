@@ -25,28 +25,20 @@ const Span = styled.span`
 `;
 
 const AnnouncesComp = ({ announces, history, isHome }) => {
-  const getAverageAndTotalReviews = (usr) => {
-    if (usr.reviews) {
-      let total = 0;
-      for (let i = 0; i < usr.reviews.length; i++) {
-        total += usr.reviews[i].rating;
-      }
-      return {
-        avgReviews: total / usr.reviews.length,
-        totalReviews: usr.reviews.length,
-      };
-    } else {
-      return {
-        avgReviews: 0,
-        totalReviews: 0,
-      };
-    }
-  };
+  const [announcesToShow, setAnnouncesToShow] = React.useState([]);
+
+  React.useEffect(() => {
+    setAnnouncesToShow(
+      announces
+        .sort((announce) => announce.avgReviews)
+        .filter((a, idx) => idx < 3)
+    );
+  }, [announces]);
 
   return (
     <SList
       itemLayout="vertical"
-      dataSource={announces}
+      dataSource={isHome ? announcesToShow : announces}
       renderItem={(announce) => (
         <List.Item
           actions={[
@@ -55,13 +47,9 @@ const AnnouncesComp = ({ announces, history, isHome }) => {
               <span>{announce.ville}</span>
             </>,
             <>
-              {console.log(announce)}
               <FaStar color="#f1c40f" />
               <Span>
-                {getAverageAndTotalReviews(announce.user).avgReviews}{" "}
-                <span>
-                  ({getAverageAndTotalReviews(announce.user).totalReviews})
-                </span>
+                {announce.avgReviews} <span>({announce.totalReviews})</span>
               </Span>
             </>,
             <span>{announce.prix}DH</span>,

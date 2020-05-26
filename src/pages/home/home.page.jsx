@@ -39,6 +39,24 @@ const HomePage = () => {
     // eslint-disable-next-line
   }, [selectedJob]);
 
+  const getAverageAndTotalReviews = (usr) => {
+    if (usr.reviews) {
+      let total = 0;
+      for (let i = 0; i < usr.reviews.length; i++) {
+        total += usr.reviews[i].rating;
+      }
+      return {
+        avgReviews: total / usr.reviews.length,
+        totalReviews: usr.reviews.length,
+      };
+    } else {
+      return {
+        avgReviews: 0,
+        totalReviews: 0,
+      };
+    }
+  };
+
   const assignAnnouncesForSelectedJob = async () => {
     if (selectedJob) {
       const announcesRefs = await getAllAnnounces(fb);
@@ -61,10 +79,14 @@ const HomePage = () => {
               (avatarURL) => ({
                 ...announce,
                 user: { ...announce.user, avatarURL },
+                ...getAverageAndTotalReviews(announce.user),
               })
             );
           } else {
-            return announce;
+            return {
+              ...announce,
+              ...getAverageAndTotalReviews(announce.user),
+            };
           }
         })
       );

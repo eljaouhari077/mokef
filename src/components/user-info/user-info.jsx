@@ -24,7 +24,6 @@ function UserInfo({
   const fb = React.useContext(FirebaseContext);
 
   React.useEffect(() => {
-    console.log(userToDisplay);
     userToDisplay ? setUserData(userToDisplay) : setUserData(user);
     // eslint-disable-next-line
   }, []);
