@@ -20,9 +20,9 @@ const MaxWidth = styled.div`
 function SearchPage() {
   const [announces, setAnnounces] = React.useState([]);
   const [filteredAnnounces, setFilteredAnnounces] = React.useState([]);
-  const [category, setCategory] = React.useState("");
-  const [searchTerm, setSearchTerm] = React.useState("Electricien");
-  const [city, setCity] = React.useState("Casablanca");
+  const [category, setCategory] = React.useState("Tous");
+  const [searchTerm, setSearchTerm] = React.useState("");
+  const [city, setCity] = React.useState("Tous");
   const fb = React.useContext(FirebaseContext);
 
   React.useEffect(() => {
@@ -46,10 +46,14 @@ function SearchPage() {
           item.user.fullName.toLowerCase().includes(searchTerm.toLowerCase())
       );
     const filterByCategory = (listToFilter) =>
-      listToFilter.filter((item) => item.category === category);
+      category === "Tous"
+        ? listToFilter
+        : listToFilter.filter((item) => item.category === category);
 
     const filterByCity = (listToFilter) =>
-      listToFilter.filter((item) => item.ville === city);
+      city === "Tous"
+        ? listToFilter
+        : listToFilter.filter((item) => item.ville === city);
 
     let filteredAnnounces_ = filterBySearchTerm(announces);
     filteredAnnounces_ = filterByCategory(filteredAnnounces_);

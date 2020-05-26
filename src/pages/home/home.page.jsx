@@ -28,6 +28,16 @@ const Container = styled(Flex)`
   background: #fff;
 `;
 
+const Footer = styled(Flex)`
+  padding: 1rem;
+  background-color: var(--blue);
+
+  > span {
+    font-size: 1.6rem;
+    color: #fff;
+  }
+`;
+
 const HomePage = () => {
   const [announces, setAnnounces] = React.useState([]);
   const { selectedJob } = React.useContext(SelectedJobContext);
@@ -123,6 +133,9 @@ const HomePage = () => {
         <Divider type="horizontal" />
         <Sponsors />
       </MaxWidth>
+      <Footer justify="center" align="center">
+        <span>Mokef all rights reserved 2020 ©</span>
+      </Footer>
     </div>
   );
 };

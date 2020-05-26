@@ -1,6 +1,6 @@
 import React from "react";
 import _ from "lodash";
-import { MenuOutlined } from "@ant-design/icons";
+import { MenuOutlined, SearchOutlined } from "@ant-design/icons";
 import { withRouter } from "react-router-dom";
 import { Drawer } from "antd";
 
@@ -9,8 +9,9 @@ import { Root } from "./navigation.styled";
 import { UserContext } from "../../contexts/user-context";
 import LoggedIn from "./logged-in/logged-in";
 import LoggedOut from "./logged-out/logged-out";
+import PhoneBreakpoint from "../responsiveness/phone_breakpoint";
 
-const Navigation = ({ location }) => {
+const Navigation = ({ location, history }) => {
   const { user } = React.useContext(UserContext);
   const [isDrawerVisible, setIsDrawerVisible] = React.useState(false);
 
@@ -34,7 +35,14 @@ const Navigation = ({ location }) => {
       >
         {isLoggedIn ? <LoggedIn /> : <LoggedOut />}
       </Drawer>
-      <div />
+      <div>
+        <PhoneBreakpoint>
+          <SearchOutlined
+            onClick={() => history.push("/search")}
+            style={{ color: "var(--blue)" }}
+          />
+        </PhoneBreakpoint>
+      </div>
     </Root>
   );
 };

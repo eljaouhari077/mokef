@@ -12,11 +12,14 @@ const InputGroup = styled(Input.Group)`
 
 const Search = ({ history }) => {
   const [query, setQuery] = React.useState("");
-  const [category, setCategory] = React.useState("Electricien");
-  const [city, setCity] = React.useState("Casablanca");
+  const [category, setCategory] = React.useState("Tous");
+  const [city, setCity] = React.useState("Tous");
 
-  const handleClick = () =>
-    history.push(`/search?query=${query}&cat=${category}&city=${city}`);
+  const handleClick = () => {
+    return query.length
+      ? history.push(`/search?query=${query}&cat=${category}&city=${city}`)
+      : history.push(`/search?cat=${category}&city=${city}`);
+  };
 
   return (
     <>
@@ -30,34 +33,35 @@ const Search = ({ history }) => {
         />
         <Select
           size="large"
-          defaultValue={jobs[0].name}
+          defaultValue="Tous"
           style={{ width: "20%" }}
           onChange={(e) => setCategory(e)}
         >
           {jobs.map((job) => (
-            <Select.Option value={job.name} key={job.name}>
-              {job.name}
-            </Select.Option>
+            <>
+              <Select.Option value="Tous">Tous</Select.Option>
+              <Select.Option value={job.name} key={job.name}>
+                {job.name}
+              </Select.Option>
+            </>
           ))}
         </Select>
         <Select
           size="large"
-          defaultValue={cities[0]}
+          defaultValue="Tous"
           style={{ width: "20%" }}
           onChange={(e) => setCity(e)}
         >
           {cities.map((city) => (
-            <Select.Option value={city} key={city}>
-              {city}
-            </Select.Option>
+            <>
+              <Select.Option value="Tous">Tous</Select.Option>
+              <Select.Option value={city} key={city}>
+                {city}
+              </Select.Option>
+            </>
           ))}
         </Select>
-        <Button
-          onClick={handleClick}
-          disabled={!query.length}
-          size="large"
-          type="primary"
-        >
+        <Button onClick={handleClick} size="large" type="primary">
           <SearchOutlined />
         </Button>
       </InputGroup>

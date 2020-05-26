@@ -4,6 +4,7 @@ import { List, Avatar } from "antd";
 import { FaStar } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
 import { withRouter } from "react-router-dom";
+import _ from "lodash";
 
 const SList = styled(List)`
   width: 100%;
@@ -29,9 +30,7 @@ const AnnouncesComp = ({ announces, history, isHome }) => {
 
   React.useEffect(() => {
     setAnnouncesToShow(
-      announces
-        .sort((announce) => announce.avgReviews)
-        .filter((a, idx) => idx < 3)
+      _.orderBy(announces, ["avgReviews"], ["desc"]).filter((a, idx) => idx < 3)
     );
   }, [announces]);
 

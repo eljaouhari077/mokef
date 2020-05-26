@@ -26,7 +26,7 @@ const Testimonial = ({ person }) => {
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non,
         reiciendis?
       </p>
-      <Rate disabled defaultValue={4.5} allowHalf />
+      <Rate disabled defaultValue={person.rating} allowHalf />
       <p style={{ color: "var(--blue)" }}>
         {person.name}, {person.job}
       </p>

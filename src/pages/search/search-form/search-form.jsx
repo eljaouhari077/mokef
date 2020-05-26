@@ -60,9 +60,12 @@ const SearchForm = ({
             onChange={(e) => setCategory(e)}
           >
             {jobs.map((job) => (
-              <Select.Option value={job.name} key={job.name}>
-                {job.name}
-              </Select.Option>
+              <>
+                <Select.Option value="Tous">Tous</Select.Option>
+                <Select.Option value={job.name} key={job.name}>
+                  {job.name}
+                </Select.Option>
+              </>
             ))}
           </Select>
           <Select
@@ -72,9 +75,12 @@ const SearchForm = ({
             onChange={(e) => setCity(e)}
           >
             {cities.map((city) => (
-              <Select.Option value={city} key={city}>
-                {city}
-              </Select.Option>
+              <>
+                <Select.Option value="Tous">Tous</Select.Option>
+                <Select.Option value={city} key={city}>
+                  {city}
+                </Select.Option>
+              </>
             ))}
           </Select>
         </Input.Group>

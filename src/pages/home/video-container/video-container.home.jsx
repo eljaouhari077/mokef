@@ -8,6 +8,7 @@ import LaptopBreakpoint from "../../../components/responsiveness/laptop_breakpoi
 
 const Root = styled.div`
   padding: 1rem;
+  margin: 3rem 0;
 
   @media (min-width: 1000px) {
     display: flex;

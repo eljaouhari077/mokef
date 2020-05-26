@@ -13,32 +13,40 @@ const testimonials = [
     name: "John Doe",
     job: "CEO",
     img: T1,
+    rating: 4,
   },
   {
     name: "Ramon Schmidt",
     job: "Writer",
     img: T2,
+    rating: 4.5,
   },
   {
     name: "Clyde Reid",
     job: "Photographist",
     img: T3,
+    rating: 5,
   },
   {
     name: "Christy Thompson",
     job: "Designer",
     img: T4,
+    rating: 4.5,
   },
   {
     name: "Pearl Rodriguez",
     job: "Advisor",
     img: T5,
+    rating: 5,
   },
 ];
 
 const Testimonials = () => {
   return (
-    <Carousel style={{ height: "35rem", padding: "1rem" }} itemsToShow={1}>
+    <Carousel
+      style={{ height: "35rem", padding: "1rem", margin: "4rem 0" }}
+      itemsToShow={1}
+    >
       {testimonials.map((person, idx) => (
         <Testimonial person={person} key={idx} />
       ))}
