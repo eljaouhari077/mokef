@@ -29,6 +29,7 @@ const MessagesPage = () => {
             getStorageFile(fb, usr.data().avatarURL).then((img) => ({
               ...usr.data(),
               messages: doc.data().messages,
+              contracts: doc.data().contracts,
               avatarURL: img,
               contractId: doc.id,
               userId: usr.id,

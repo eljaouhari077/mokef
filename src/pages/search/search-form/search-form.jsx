@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Input, Select } from "antd";
 import { jobs } from "../../../data/jobs";
+import { cities } from "../../../data/cities";
 import { withRouter } from "react-router-dom";
 import queryString from "query-string";
 
@@ -24,6 +25,8 @@ const SearchForm = ({
   category,
   setCategory,
   location,
+  city,
+  setCity,
 }) => {
   React.useEffect(() => {
     if (location.search) {
@@ -34,6 +37,9 @@ const SearchForm = ({
       if (parsedQueryString.cat) {
         setCategory(parsedQueryString.cat);
       }
+      if (parsedQueryString.city) {
+        setCity(parsedQueryString.city);
+      }
     }
     // eslint-disable-next-line
   }, []);
@@ -43,19 +49,31 @@ const SearchForm = ({
       <div>
         <Input.Group>
           <Input
-            style={{ width: "65%" }}
+            style={{ width: "50%" }}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="ex: Youness"
             value={searchTerm}
           />
           <Select
             value={category}
-            style={{ width: "35%" }}
+            style={{ width: "25%" }}
             onChange={(e) => setCategory(e)}
           >
             {jobs.map((job) => (
               <Select.Option value={job.name} key={job.name}>
                 {job.name}
+              </Select.Option>
+            ))}
+          </Select>
+          <Select
+            value={city}
+            defaultValue={cities[0]}
+            style={{ width: "25%" }}
+            onChange={(e) => setCity(e)}
+          >
+            {cities.map((city) => (
+              <Select.Option value={city} key={city}>
+                {city}
               </Select.Option>
             ))}
           </Select>

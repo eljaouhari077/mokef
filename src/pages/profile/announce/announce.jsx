@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "react-image";
 import { Card } from "antd";
-import Cover from "../../../assets/sabbath.jpg";
+import Cover from "../../../assets/notfound.jpg";
 import PropTypes from "prop-types";
 import { getStorageFile } from "../../../utils/storage";
 import { FirebaseContext } from "../../../firebase";

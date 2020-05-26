@@ -55,12 +55,18 @@ const HomePage = () => {
         )
       );
       const allAnnouncesWithUserDataAndImageURL = await Promise.all(
-        allAnnouncesWithUserData.map((announce) =>
-          getStorageFile(fb, announce.user.avatarURL).then((avatarURL) => ({
-            ...announce,
-            user: { ...announce.user, avatarURL },
-          }))
-        )
+        allAnnouncesWithUserData.map((announce) => {
+          if (announce.user.avatarURL) {
+            return getStorageFile(fb, announce.user.avatarURL).then(
+              (avatarURL) => ({
+                ...announce,
+                user: { ...announce.user, avatarURL },
+              })
+            );
+          } else {
+            return announce;
+          }
+        })
       );
 
       setAnnounces(

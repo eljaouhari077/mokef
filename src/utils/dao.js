@@ -81,6 +81,10 @@ export const getContracts = (fb, ownerId, clientId) => {
     .get();
 };
 
+export const getContract = (fb, contractId) => {
+  return fb.contractsCollection().doc(contractId).get();
+};
+
 export const getUserContracts = (fb, userId, field) => {
   return fb.contractsCollection().where(field, "==", userId).get();
 };

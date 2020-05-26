@@ -12,7 +12,37 @@ const SList = styled(List)`
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 `;
 
+const Span = styled.span`
+  margin-left: 0.6rem;
+  position: relative;
+
+  > span {
+    position: absolute;
+    bottom: 40%;
+    left: 100%;
+    font-size: 1rem;
+  }
+`;
+
 const AnnouncesComp = ({ announces, history }) => {
+  const getAverageAndTotalReviews = (usr) => {
+    if (usr.reviews) {
+      let total = 0;
+      for (let i = 0; i < usr.reviews.length; i++) {
+        total += usr.reviews[i].rating;
+      }
+      return {
+        avgReviews: total / usr.reviews.length,
+        totalReviews: usr.reviews.length,
+      };
+    } else {
+      return {
+        avgReviews: 0,
+        totalReviews: 0,
+      };
+    }
+  };
+
   return (
     <SList
       itemLayout="vertical"
@@ -26,7 +56,12 @@ const AnnouncesComp = ({ announces, history }) => {
             </>,
             <>
               <FaStar color="#f1c40f" />
-              <span>4.6</span>
+              <Span>
+                {getAverageAndTotalReviews(announce.user).avgReviews}{" "}
+                <span>
+                  ({getAverageAndTotalReviews(announce.user).totalReviews})
+                </span>
+              </Span>
             </>,
             <span>{announce.prix}DH</span>,
           ]}

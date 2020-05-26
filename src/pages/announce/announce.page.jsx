@@ -20,6 +20,8 @@ function AnnouncePage({ match, history }) {
   const [announceData, setAnnounceData] = React.useState(null);
   const [announceImage, setAnnounceImage] = React.useState(null);
   const [announceOwner, setAnnounceOwner] = React.useState(null);
+  const [avgReviews, setAvgReviews] = React.useState(0);
+  const [totalReviews, setTotalReviews] = React.useState(0);
   const [isPreviewVisible, setIsPreviewVisible] = React.useState(null);
   const { user } = React.useContext(UserContext);
   const { setSelectedAnnounce } = React.useContext(SelectedAnnounceContext);
@@ -33,6 +35,18 @@ function AnnouncePage({ match, history }) {
 
   const isOwnAnnounce = () => announceData.user.id === user.uid;
 
+  const getAverageAndTotalReviews = (usr) => {
+    if (usr.reviews) {
+      let total = 0;
+      for (let i = 0; i < usr.reviews.length; i++) {
+        total += usr.reviews[i].rating;
+      }
+
+      setAvgReviews(total / usr.reviews.length);
+      setTotalReviews(usr.reviews.length);
+    }
+  };
+
   const getAnnounceData = async (anounceId) => {
     const result = await getAnnounce(fb, anounceId);
     if (!result.exists) {
@@ -42,6 +56,8 @@ function AnnouncePage({ match, history }) {
 
     const owner = await getUserFromRef(fb, result.data().user);
     setAnnounceOwner({ ...owner.data(), uid: owner.id });
+
+    getAverageAndTotalReviews(result.data());
 
     if (result.data().imageURL) {
       const image = await getStorageFile(fb, result.data().imageURL);
@@ -53,7 +69,13 @@ function AnnouncePage({ match, history }) {
     <>
       {announceData && (
         <div>
-          {announceOwner && <UserInfo userToDisplay={announceOwner} />}
+          {announceOwner && (
+            <UserInfo
+              userToDisplay={announceOwner}
+              avgReviews={avgReviews}
+              totalReviews={totalReviews}
+            />
+          )}
           <AnnounceInfo direction="column" align="start">
             {!isOwnAnnounce() && (
               <Button

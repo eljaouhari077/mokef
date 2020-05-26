@@ -12,6 +12,7 @@ import { updateContractMessages } from "../../../utils/dao";
 import { FirebaseContext } from "../../../firebase";
 import { UserContext } from "../../../contexts/user-context";
 import ReviewModal from "./review-modal/review-modal";
+import ContractsModal from "./contracts-modal/contracts-modal";
 
 const Root = styled(Flex)`
   height: 100%;
@@ -52,6 +53,9 @@ const MessageContent = ({
 }) => {
   const [message, setMessage] = React.useState("");
   const [isReviewModalVisible, setIsReviewModalVisible] = React.useState(false);
+  const [isContractsModalVisible, setIsContractsModalVisible] = React.useState(
+    false
+  );
   const fb = React.useContext(FirebaseContext);
   const { user } = React.useContext(UserContext);
 
@@ -76,6 +80,12 @@ const MessageContent = ({
                 as={areUsersVisible ? MenuFoldOutlined : MenuUnfoldOutlined}
                 onClick={() => setAreUsersVisible(!areUsersVisible)}
               />
+              <Button
+                type="primary"
+                onClick={() => setIsContractsModalVisible(true)}
+              >
+                Contrats
+              </Button>
               {selectedContact.canAddReview && (
                 <Button
                   type="primary"
@@ -105,6 +115,11 @@ const MessageContent = ({
           <ReviewModal
             isVisible={isReviewModalVisible}
             setIsVisible={setIsReviewModalVisible}
+            selectedContact={selectedContact}
+          />
+          <ContractsModal
+            isVisible={isContractsModalVisible}
+            setIsVisible={setIsContractsModalVisible}
             selectedContact={selectedContact}
           />
         </>

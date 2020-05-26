@@ -19,11 +19,11 @@ const Root = styled.div`
     background: linear-gradient(
         0deg,
         rgba(58, 129, 224, 1) 0%,
-        rgba(53, 147, 255, 1) 20%,
-        rgba(57, 148, 255, 1) 43%,
-        rgba(58, 130, 225, 0.35898109243697474) 85%
+        rgba(53, 147, 255, 0.7) 20%,
+        rgba(57, 148, 255, 0.5) 43%,
+        rgba(58, 130, 225, 0.3) 85%
       ),
-      url(${Hero}) center/cover no-repeat;
+      url(${Hero}) top/cover no-repeat;
   }
 
   @media (min-width: 600px) {

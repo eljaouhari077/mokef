@@ -6,12 +6,23 @@ import { getStorageFile } from "../../utils/storage";
 import SearchForm from "./search-form/search-form";
 import Announces from "../../components/announces/announces";
 import { withRouter } from "react-router-dom";
+import styled from "styled-components";
+
+const MaxWidth = styled.div`
+  max-width: 1050px;
+  margin: 1rem auto;
+
+  @media (max-width: 1040px) {
+    margin: 0 auto;
+  }
+`;
 
 function SearchPage() {
   const [announces, setAnnounces] = React.useState([]);
   const [filteredAnnounces, setFilteredAnnounces] = React.useState([]);
   const [category, setCategory] = React.useState("");
   const [searchTerm, setSearchTerm] = React.useState("Electricien");
+  const [city, setCity] = React.useState("Casablanca");
   const fb = React.useContext(FirebaseContext);
 
   React.useEffect(() => {
@@ -24,7 +35,7 @@ function SearchPage() {
       updateFilteredAnnounces();
     }
     // eslint-disable-next-line
-  }, [announces, searchTerm, category]);
+  }, [announces, searchTerm, category, city]);
 
   const updateFilteredAnnounces = () => {
     const filterBySearchTerm = (listToFilter) =>
@@ -37,8 +48,12 @@ function SearchPage() {
     const filterByCategory = (listToFilter) =>
       listToFilter.filter((item) => item.category === category);
 
+    const filterByCity = (listToFilter) =>
+      listToFilter.filter((item) => item.ville === city);
+
     let filteredAnnounces_ = filterBySearchTerm(announces);
     filteredAnnounces_ = filterByCategory(filteredAnnounces_);
+    filteredAnnounces_ = filterByCity(filteredAnnounces_);
 
     setFilteredAnnounces(filteredAnnounces_);
   };
@@ -58,12 +73,18 @@ function SearchPage() {
       )
     );
     const allAnnouncesWithUserDataAndImageURL = await Promise.all(
-      allAnnouncesWithUserData.map((announce) =>
-        getStorageFile(fb, announce.user.avatarURL).then((avatarURL) => ({
-          ...announce,
-          user: { ...announce.user, avatarURL },
-        }))
-      )
+      allAnnouncesWithUserData.map((announce) => {
+        if (announce.user.avatarURL) {
+          return getStorageFile(fb, announce.user.avatarURL).then(
+            (avatarURL) => ({
+              ...announce,
+              user: { ...announce.user, avatarURL },
+            })
+          );
+        } else {
+          return announce;
+        }
+      })
     );
     setAnnounces(allAnnouncesWithUserDataAndImageURL);
   };
@@ -77,8 +98,12 @@ function SearchPage() {
             setSearchTerm={setSearchTerm}
             category={category}
             setCategory={setCategory}
+            city={city}
+            setCity={setCity}
           />
-          <Announces announces={filteredAnnounces} />
+          <MaxWidth>
+            <Announces announces={filteredAnnounces} />
+          </MaxWidth>
         </div>
       )}
     </>

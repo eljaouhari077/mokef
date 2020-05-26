@@ -1,5 +1,4 @@
 import React from "react";
-import BlackSabbath from "../../../../assets/anonymous.png";
 import Img from "react-image";
 import { Flex } from "../../../../components/shared/shared.styled";
 import styled from "styled-components";
@@ -19,16 +18,18 @@ const Root = styled(Flex)`
   }
 `;
 
-const Testimonial = () => {
+const Testimonial = ({ person }) => {
   return (
     <Root direction="column" align="center">
-      <Img src={BlackSabbath} />
+      <Img src={person.img} />
       <p>
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non,
         reiciendis?
       </p>
       <Rate disabled defaultValue={4.5} allowHalf />
-      <p style={{ color: "var(--blue)" }}>John Doe, CEO</p>
+      <p style={{ color: "var(--blue)" }}>
+        {person.name}, {person.job}
+      </p>
     </Root>
   );
 };
