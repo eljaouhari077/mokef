@@ -49,7 +49,8 @@ const AnnouncesComp = ({ announces, history, isHome }) => {
               {console.log(announce)}
               <FaStar color="#f1c40f" />
               <Span>
-                {announce.avgReviews} <span>({announce.totalReviews})</span>
+                {announce.avgReviews.toFixed(1)}{" "}
+                <span>({announce.totalReviews})</span>
               </Span>
             </>,
             <span>{announce.prix}DH</span>,

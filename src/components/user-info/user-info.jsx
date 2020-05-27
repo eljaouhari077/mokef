@@ -62,9 +62,13 @@ function UserInfo({
             <UserInformations>
               <h3>{userData.fullName}</h3>
               <Flex align="baseline">
-                <Rate disabled defaultValue={avgReviews} allowHalf={true} />
+                <Rate
+                  disabled
+                  defaultValue={avgReviews.toFixed(1)}
+                  allowHalf={true}
+                />
                 <Span>
-                  {avgReviews} <span>({totalReviews})</span>
+                  {avgReviews.toFixed(1)} <span>({totalReviews})</span>
                 </Span>
               </Flex>
               <div>
