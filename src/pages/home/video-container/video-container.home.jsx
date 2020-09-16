@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Video from "../../../assets/video.mp4";
 import DesktopBreakpoint from "../../../components/responsiveness/desktop_breakpoint";
 import LaptopBreakpoint from "../../../components/responsiveness/laptop_breakpoint";
+import Vidcover from "../../../assets/vidcover.png";
 
 const Root = styled.div`
   padding: 1rem;
@@ -20,7 +21,7 @@ const VideoContainer = () => {
   return (
     <Root>
       <DesktopBreakpoint>
-        <Player src={Video} fluid={false} height={340} />
+        <Player src={Video} fluid={false} height={330} width={700} poster={Vidcover} />
       </DesktopBreakpoint>
       <LaptopBreakpoint>
         <Player src={Video} />

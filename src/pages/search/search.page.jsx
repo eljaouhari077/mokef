@@ -7,6 +7,7 @@ import SearchForm from "./search-form/search-form";
 import Announces from "../../components/announces/announces";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
+import lodash from 'lodash';
 
 const MaxWidth = styled.div`
   max-width: 1050px;
@@ -60,7 +61,7 @@ function SearchPage() {
       listToFilter.filter(
         (item) =>
           item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          item.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          // item.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
           item.user.fullName.toLowerCase().includes(searchTerm.toLowerCase())
       );
     const filterByCategory = (listToFilter) =>
@@ -112,7 +113,7 @@ function SearchPage() {
         }
       })
     );
-    setAnnounces(allAnnouncesWithUserDataAndImageURL);
+    setAnnounces(lodash.orderBy(allAnnouncesWithUserDataAndImageURL, ["avgReviews", "totalReviwes"], ["desc", "desc"]));
   };
 
   return (

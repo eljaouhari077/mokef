@@ -68,7 +68,7 @@ const ContractsModal = ({
                   <Img
                     style={{
                       height: "150px",
-                      width: "100%",
+                      maxWidth: "300px",
                       objectFit: "cover",
                     }}
                     src={

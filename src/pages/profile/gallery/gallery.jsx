@@ -2,6 +2,7 @@ import React from "react";
 import GalleryItem from "./gallery-item/gallery-item";
 import styled from "styled-components";
 import ImagePreview from "../../../components/image-preview/image-preview";
+import { Empty } from "antd";
 
 const Root = styled.div`
   display: grid;
@@ -21,7 +22,7 @@ const Gallery = ({ gallery }) => {
   return (
     <>
       <Root>
-        {gallery.map((item) => (
+        {!gallery ? <Empty /> : gallery.map((item) => (
           <GalleryItem
             key={item}
             handlePreview={handlePreview}

@@ -40,10 +40,12 @@ const Footer = styled(Flex)`
 
 const HomePage = () => {
   const [announces, setAnnounces] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
   const { selectedJob } = React.useContext(SelectedJobContext);
   const fb = React.useContext(FirebaseContext);
 
   React.useEffect(() => {
+    setIsLoading(true);
     assignAnnouncesForSelectedJob();
 
     // eslint-disable-next-line
@@ -106,6 +108,8 @@ const HomePage = () => {
           (announce) => announce.category === selectedJob
         )
       );
+
+      setIsLoading(false);
     }
   };
 
@@ -113,11 +117,11 @@ const HomePage = () => {
     <>
       <TabletBreakpoint>
         <Container>
-          <Announces announces={announces} isHome={true} />
+          <Announces announces={announces} isHome={true} isLoading={isLoading} />
         </Container>
       </TabletBreakpoint>
       <PhoneBreakpoint>
-        <Announces announces={announces} isHome={true} />
+        <Announces announces={announces} isHome={true} isLoading={isLoading} />
       </PhoneBreakpoint>
     </>
   );

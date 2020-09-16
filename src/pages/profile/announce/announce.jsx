@@ -9,8 +9,8 @@ import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 
 const SCard = styled(Card)`
-  width: 100%;
   cursor: pointer;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
 
   img {
     height: 15rem;

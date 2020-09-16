@@ -38,7 +38,7 @@ function UserInfo({
     if (!userData.created_at) return 0;
 
     const userCreatedAt = moment.unix(userData.created_at.seconds);
-    return moment().diff(userCreatedAt, "hours");
+    return moment().diff(userCreatedAt, "days");
   };
   const getAvatar = () => {
     if (!userData.avatarURL) return;
@@ -77,7 +77,7 @@ function UserInfo({
               </div>
               <div>
                 <FaUserAlt />
-                <Span>Membre depuis {getUserElapsedTime()}h</Span>
+                <Span>Membre depuis {getUserElapsedTime()}d</Span>
               </div>
             </UserInformations>
           </Flex>

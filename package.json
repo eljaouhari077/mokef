@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.0.5",
+    "@brainhubeu/react-carousel": "^1.19.26",
     "@stripe/react-stripe-js": "^1.1.2",
     "@stripe/stripe-js": "^1.5.0",
     "@testing-library/jest-dom": "^4.2.4",

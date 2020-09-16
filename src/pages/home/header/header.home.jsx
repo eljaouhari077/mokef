@@ -18,7 +18,7 @@ const Root = styled.div`
     height: 60vh;
     background: linear-gradient(
         0deg,
-        rgba(58, 129, 224, 1) 0%,
+        rgba(58, 129, 224, 1) 10%,
         rgba(53, 147, 255, 0.7) 20%,
         rgba(57, 148, 255, 0.5) 43%,
         rgba(58, 130, 225, 0.3) 85%

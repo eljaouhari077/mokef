@@ -11,6 +11,7 @@ import SelectedJobProvider from "./contexts/selected-job.context";
 import "antd/dist/antd.css";
 import "./index.css";
 import "video-react/dist/video-react.css";
+import '@brainhubeu/react-carousel/lib/style.css';
 
 ReactDOM.render(
   <FirebaseContext.Provider value={new Firebase()}>

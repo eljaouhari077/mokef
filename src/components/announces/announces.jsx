@@ -4,7 +4,7 @@ import { List, Avatar } from "antd";
 import { FaStar } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
 import { withRouter } from "react-router-dom";
-import _ from "lodash";
+import lodash from "lodash";
 
 const SList = styled(List)`
   width: 100%;
@@ -25,17 +25,18 @@ const Span = styled.span`
   }
 `;
 
-const AnnouncesComp = ({ announces, history, isHome }) => {
+const AnnouncesComp = ({ announces, history, isHome, isLoading }) => {
   const [announcesToShow, setAnnouncesToShow] = React.useState([]);
 
   React.useEffect(() => {
     setAnnouncesToShow(
-      _.orderBy(announces, ["avgReviews"], ["desc"]).filter((a, idx) => idx < 3)
+      lodash.orderBy(announces, ["avgReviews", "totalReviwes"], ["desc", "desc"]).filter((a, idx) => idx < 3)
     );
   }, [announces]);
 
   return (
     <SList
+      loading={isLoading}
       itemLayout="vertical"
       dataSource={isHome ? announcesToShow : announces}
       renderItem={(announce) => (
@@ -46,7 +47,6 @@ const AnnouncesComp = ({ announces, history, isHome }) => {
               <span>{announce.ville}</span>
             </>,
             <>
-              {console.log(announce)}
               <FaStar color="#f1c40f" />
               <Span>
                 {announce.avgReviews.toFixed(1)}{" "}

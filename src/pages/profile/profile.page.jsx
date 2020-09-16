@@ -35,7 +35,7 @@ const Container = styled.div`
 const Announces = styled.div`
   @media (min-width: 600px) {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 30rem));
     grid-gap: 3rem;
   }
 `;
@@ -104,23 +104,31 @@ const ProfilePage = ({ location, match, history }) => {
         .then((doc) => {
           getReviews(doc.data());
           getAverageAndTotalReviews(doc.data());
-          Promise.all(
-            doc
-              .data()
-              .profile.gallery.map((img) =>
-                getStorageFile(fb, `gallery/${img}`)
-              )
-          ).then((res) =>
+          if (doc.data().profile.gallery) {
+            Promise.all(
+              doc
+                .data()
+                .profile.gallery.map((img) =>
+                  getStorageFile(fb, `gallery/${img}`)
+                )
+            ).then((res) =>
+              setPageUser({
+                ...doc.data(),
+                profile: {
+                  ...doc.data().profile,
+                  gallery: res,
+                },
+              })
+            );
+          } else {
             setPageUser({
               ...doc.data(),
-              profile: {
-                ...doc.data().profile,
-                gallery: res,
-              },
             })
-          );
+          }
         })
-        .catch((err) => history.push("/"));
+        .catch((err) => {
+          console.error(err);
+        });
     }
     // eslint-disable-next-line
   }, []);

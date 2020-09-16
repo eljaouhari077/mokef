@@ -1,5 +1,5 @@
 import React from "react";
-import Carousel from "react-elastic-carousel";
+import Carousel from '@brainhubeu/react-carousel';
 
 import Testimonial from "./testimonial/testimonial.testimonials";
 import T1 from "../../../assets/testimonials/1.jpg";
@@ -43,14 +43,16 @@ const testimonials = [
 
 const Testimonials = () => {
   return (
-    <Carousel
-      style={{ height: "35rem", padding: "1rem", margin: "4rem 0" }}
-      itemsToShow={1}
-    >
-      {testimonials.map((person, idx) => (
-        <Testimonial person={person} key={idx} />
-      ))}
-    </Carousel>
+    <div style={{ margin: '4rem 0' }}>
+      <Carousel
+        plugins={['fastSwipe']}
+        itemsToShow={1}
+      >
+        {testimonials.map((person, idx) => (
+          <Testimonial person={person} key={idx} />
+        ))}
+      </Carousel>
+    </div>
   );
 };
 
