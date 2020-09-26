@@ -70,6 +70,7 @@ export const saveContract = (fb, ownerId, clientId, subContractId) => {
     clientId,
     contracts: [subContractId],
     messages: [],
+    isNew: true,
   });
 };
 
@@ -95,6 +96,7 @@ export const updateContract = (fb, contractId, subContractId) => {
     .doc(contractId)
     .update({
       contracts: firebase.firestore.FieldValue.arrayUnion(subContractId),
+      isNew: true,
     });
 };
 

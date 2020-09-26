@@ -26,7 +26,7 @@ const Navigation = ({ location, history }) => {
   return (
     <Root>
       <MenuOutlined onClick={() => setIsDrawerVisible(true)} />
-      <Logo />
+      <Logo style={{ cursor: 'pointer' }} onClick={() => history.push('/')} />
 
       <Drawer
         visible={isDrawerVisible}

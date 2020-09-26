@@ -76,7 +76,11 @@ const ProfilePage = ({ location, match, history }) => {
 
   const getAdditionalReviewInfo = async (review) => {
     const usr = await getUser(fb, review.userId);
-    const avatarURL = await getStorageFile(fb, usr.data().avatarURL);
+    let avatarURL;
+
+    if (usr.data().avatarURL) {
+      avatarURL = await getStorageFile(fb, usr.data().avatarURL);
+    }
 
     return {
       fullName: usr.data().fullName,
@@ -154,9 +158,9 @@ const ProfilePage = ({ location, match, history }) => {
               }
             >
               {isOwnProfile ? (
-                user.profile.description
+                user.profile.description || <Empty />
               ) : pageUser.profile.description ? (
-                <p>{user.profile.description}</p>
+                <p>{pageUser.profile.description}</p>
               ) : (
                 <Empty />
               )}

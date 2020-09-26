@@ -24,6 +24,8 @@ const MessageUsers = ({ areUsersVisible, contacts, setSelectedContact }) => {
                   <MessageUser
                     name={contact.fullName}
                     avatar={contact.avatarURL}
+                    isNew={contact.isNew}
+                    contact={contact}
                   />
                 </SMenu.Item>
               ))}

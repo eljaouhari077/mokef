@@ -24,6 +24,7 @@ function SearchPage() {
   const [category, setCategory] = React.useState("Tous");
   const [searchTerm, setSearchTerm] = React.useState("");
   const [city, setCity] = React.useState("Tous");
+  const [isLoading, setIsLoading] = React.useState(false);
   const fb = React.useContext(FirebaseContext);
 
   const getAverageAndTotalReviews = (usr) => {
@@ -82,6 +83,7 @@ function SearchPage() {
   };
 
   const getAnnounces = async () => {
+    setIsLoading(true);
     const announcesRefs = await getAllAnnounces(fb);
     const allAnnounces = announcesRefs.docs.map((announce) => ({
       ...announce.data(),
@@ -114,11 +116,12 @@ function SearchPage() {
       })
     );
     setAnnounces(lodash.orderBy(allAnnouncesWithUserDataAndImageURL, ["avgReviews", "totalReviwes"], ["desc", "desc"]));
+    setIsLoading(false);
   };
 
   return (
     <>
-      {announces.length > 0 && (
+      {(
         <div>
           <SearchForm
             searchTerm={searchTerm}
@@ -129,7 +132,7 @@ function SearchPage() {
             setCity={setCity}
           />
           <MaxWidth>
-            <Announces announces={filteredAnnounces} />
+            <Announces announces={filteredAnnounces} isLoading={isLoading} />
           </MaxWidth>
         </div>
       )}

@@ -1,4 +1,5 @@
 import React from "react";
+import lodash from "lodash";
 import MessageUsers from "./message-users/message-users";
 import { Flex } from "../../components/shared/shared.styled";
 import styled from "styled-components";
@@ -31,6 +32,7 @@ const MessagesPage = () => {
                 ...usr.data(),
                 messages: doc.data().messages,
                 contracts: doc.data().contracts,
+                isNew: doc.data().isNew,
                 avatarURL: img,
                 contractId: doc.id,
                 userId: usr.id,
@@ -41,6 +43,7 @@ const MessagesPage = () => {
                 ...usr.data(),
                 messages: doc.data().messages,
                 contracts: doc.data().contracts,
+                isNew: doc.data().isNew,
                 contractId: doc.id,
                 userId: usr.id,
                 canAddReview: type === "clientId" ? true : false,
@@ -57,7 +60,7 @@ const MessagesPage = () => {
         getContacts("ownerId", "clientId"),
         getContacts("clientId", "ownerId"),
       ]).then(([owner, client]) => {
-        setContacts([...owner, ...client]);
+        setContacts(lodash.uniqBy([...owner, ...client], 'userId'));
       });
     });
     // eslint-disable-next-line

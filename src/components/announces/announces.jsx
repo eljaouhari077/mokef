@@ -37,6 +37,9 @@ const AnnouncesComp = ({ announces, history, isHome, isLoading }) => {
   return (
     <SList
       loading={isLoading}
+      pagination={{
+        pageSize: 10,
+      }}
       itemLayout="vertical"
       dataSource={isHome ? announcesToShow : announces}
       renderItem={(announce) => (

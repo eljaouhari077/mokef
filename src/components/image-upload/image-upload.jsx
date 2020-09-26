@@ -45,12 +45,18 @@ const ImageUpload = ({ setImageFile }) => {
     </div>
   );
 
+  const dummyRequest = ({ file, onSuccess }) => {
+    setTimeout(() => {
+      onSuccess("ok");
+    }, 2000);
+  };
+
   return (
     <Upload
       name="image"
       listType="picture-card"
       showUploadList={false}
-      action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+      customRequest={dummyRequest}
       beforeUpload={beforeUpload}
       onChange={handleChange}
     >

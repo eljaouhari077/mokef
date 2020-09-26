@@ -10,7 +10,6 @@ import styled from "styled-components";
 
 const SCard = styled(Card)`
   cursor: pointer;
-  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
 
   img {
     height: 15rem;

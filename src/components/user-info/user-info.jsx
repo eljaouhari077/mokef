@@ -77,7 +77,7 @@ function UserInfo({
               </div>
               <div>
                 <FaUserAlt />
-                <Span>Membre depuis {getUserElapsedTime()}d</Span>
+                <Span>Membre depuis {getUserElapsedTime()} jours</Span>
               </div>
             </UserInformations>
           </Flex>

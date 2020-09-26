@@ -137,9 +137,6 @@ const HomePage = () => {
         <Divider type="horizontal" />
         <Sponsors />
       </MaxWidth>
-      <Footer justify="center" align="center">
-        <span>Mokef all rights reserved 2020 ©</span>
-      </Footer>
     </div>
   );
 };
