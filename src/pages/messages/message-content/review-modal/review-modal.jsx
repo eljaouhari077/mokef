@@ -26,6 +26,9 @@ const ReviewModal = ({ isVisible, setIsVisible, selectedContact }) => {
       review,
       rating,
     }).then(() => {
+      fb.contractsCollection()
+        .doc(selectedContact.contractId)
+        .update({ didAddReview: true });
       message.success("l'avis a été ajouté!");
       setIsVisible(false);
     });

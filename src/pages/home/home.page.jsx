@@ -28,16 +28,6 @@ const Container = styled(Flex)`
   background: #fff;
 `;
 
-const Footer = styled(Flex)`
-  padding: 1rem;
-  background-color: var(--blue);
-
-  > span {
-    font-size: 1.6rem;
-    color: #fff;
-  }
-`;
-
 const HomePage = () => {
   const [announces, setAnnounces] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);

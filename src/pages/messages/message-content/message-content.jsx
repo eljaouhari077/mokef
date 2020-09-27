@@ -89,11 +89,12 @@ const MessageContent = ({
                 </Button>
                 {selectedContact.canAddReview && (
                   <Button
+                    disabled={selectedContact.didAddReview}
                     style={{ marginLeft: "1rem" }}
                     type="primary"
                     onClick={() => setIsReviewModalVisible(true)}
                   >
-                    Ajouter un avis
+                    {selectedContact.didAddReview ? 'Avis ajouté' : 'Ajouter un avis'}
                   </Button>
                 )}
               </div>

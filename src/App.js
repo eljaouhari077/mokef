@@ -28,7 +28,7 @@ const App = () => {
     <>
       <Navigation />
       <Switch>
-        <Route path="/" exact component={HomePage} />
+        <PrivateRoute path="/" exact component={HomePage} />
         <PrivateRoute path="/messages" exact component={MessagesPage} />
         <PrivateRoute path="/profile" exact component={ProfilePage} />
         <PrivateRoute path="/profile/:id" exact component={ProfilePage} />

@@ -37,6 +37,7 @@ const MessagesPage = () => {
                 contractId: doc.id,
                 userId: usr.id,
                 canAddReview: type === "clientId" ? true : false,
+                didAddReview: doc.data().didAddReview,
               }));
             } else {
               return {
@@ -47,6 +48,7 @@ const MessagesPage = () => {
                 contractId: doc.id,
                 userId: usr.id,
                 canAddReview: type === "clientId" ? true : false,
+                didAddReview: doc.data().didAddReview,
               };
             }
           })
